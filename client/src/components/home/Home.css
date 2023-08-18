@@ -1,0 +1,88 @@
+.img-slide{
+    height: 35rem;
+    width: 80%;
+    background-position: center;
+    background-size: cover;
+}
+.imageCarousel{
+    height: 100vh;
+    width: 100%;
+}
+.imageCarousel > div{
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    height: 80vh;
+}
+.textOverlay {
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    max-height: 2rem;
+    padding: 0 2rem;
+}
+.img-text{
+    color: #fff;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    transition: 1s;
+}
+.buttonOverlay{
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    gap: 70vw;
+}
+.carousel-button{
+    background-color: rgba(247, 246, 245, 0.6);
+    backdrop-filter: blur(10px);
+    border: none;
+    height: 2.5rem;
+    width: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.2rem;
+}
+.carousel-button:hover{
+    background-color: rgba(247, 246, 245, 0.9);
+}
+.fa-arrow-right, .fa-arrow-left{
+    font-size: 1.3rem;
+}
+@media (max-width:1200px) {
+    .img-slide{
+        width: 90%;
+        height: 45vw;
+    }
+    .textOverlay{
+        top: 8rem;
+    }
+    .imageCarousel{
+        justify-content: center;
+        align-items: initial;
+        padding-top: 10rem;
+    }
+    .imageCarousel > .buttonOverlay{
+        align-items: initial;
+        padding-top: 20vw;
+    }
+    .img-text{
+        margin-top: 83vw;
+    }
+}
+@media (max-width:600px) {
+    .carousel-button{
+        height: 2rem;
+        width: 2.5rem;
+    }
+    .img-text{
+        font-size: 1rem;
+    }
+    .buttonOverlay{
+        gap: 65vw;
+    }
+}
