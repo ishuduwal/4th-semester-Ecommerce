@@ -8,6 +8,7 @@ import { Laptop } from './components/laptops/Laptop';
 import { Accessories } from './components/accesories/Accessories';
 import { Custompc } from './components/custompc/Custompc';
 import { Laptopdetail } from './components/laptops/Laptopdetail';
+import { Accessoriesdetail } from './components/accesories/Accessoriesdetail';
 function App() {
   return (
     <>
@@ -23,6 +24,7 @@ function App() {
         <Route path='/accessories' element={<Accessories/>} />
         <Route path='/custompc' element={<Custompc/>} />
         <Route path= '/laptopdetail' element={<Laptopdetail/>} />
+        <Route path='/accessoriesdetail' element={<Accessoriesdetail/>}/>
      </Routes>
      </div>
       </Router>

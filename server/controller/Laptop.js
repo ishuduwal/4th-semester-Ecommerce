@@ -23,6 +23,6 @@ export const AddLaptop = async (req, res) => {
             res.status(201).json({message: "Laptop added"})
         }
     } catch (error) {
-        re.status(401).json({message: error.message})
+        res.status(401).json({message: error.message})
     }
 }

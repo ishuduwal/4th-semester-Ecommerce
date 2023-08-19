@@ -36,7 +36,7 @@ export const Laptopdetail = () => {
         <p className='flex'><p className='mr-1 font-semibold'>Ram:</p>{ state.ram }</p>
               <p className='flex'><p className='mr-1 font-semibold'>Storage:</p>{state.storage}</p>
               <p className='flex'><p className='mr-1 font-semibold'>Weight:</p>{state.weight}</p>
-        <p className='flex'><p className='mr-1 font-semibold'>Display:</p>{ state.weight }</p>
+        <p className='flex'><p className='mr-1 font-semibold'>Display:</p>{ state.display }</p>
               <div className='laptop-price'>
                 <p>NPR {totalPrice}</p>
               </div>
