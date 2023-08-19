@@ -19,9 +19,9 @@ export const Navbar = () => {
     navigate('/accessories',{state:e.target.textContent})
   }
 
-  const CustompcHandler = (e) => {
+  const DesktopHandler = (e) => {
     e.preventDefault();
-    navigate('/custompc',{state:e.target.textContent})
+    navigate('/desktop',{state:e.target.textContent})
   }
   return (
     <>
@@ -51,7 +51,7 @@ export const Navbar = () => {
              <li><a onClick={(e)=>{AccessoriesHandler(e)}}>Storage</a></li>
            </ul>
           </li>
-          <li className='cursor-pointer'><a onClick={(e)=>{CustompcHandler(e)}}>Custom Pc</a></li>
+          <li className='cursor-pointer'><a onClick={(e)=>{DesktopHandler(e)}}>Desktop</a></li>
         </ul>
         <div id='mobile'>
             <i id="bar" className={clicked ? 'fas fa-times' : 'fas fa-bars'}

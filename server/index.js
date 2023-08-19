@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import UserRouter from './router/User.js'
 import LaptopRouter from './router/Laptop.js'
 import AccessoriesRouter from './router/Accessories.js'
+import DesktopRouter from './router/Desktop.js'
 
 const app = express();
 dotenv.config();
@@ -14,6 +15,7 @@ app.use(cors());
 app.use('/user', UserRouter);
 app.use('/laptop', LaptopRouter);
 app.use('/accessories', AccessoriesRouter);
+app.use('/desktop', DesktopRouter);
 
 const PORT = process.env.PORT || 5000;
 mongoose.connect(process.env.mongodb).then(() =>

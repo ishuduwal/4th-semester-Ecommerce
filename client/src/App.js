@@ -6,9 +6,10 @@ import { Login } from "./components/navbar/user/Login";
 import { Signup } from "./components/navbar/user/Signup";
 import { Laptop } from './components/laptops/Laptop';
 import { Accessories } from './components/accesories/Accessories';
-import { Custompc } from './components/custompc/Custompc';
+import { Desktop } from './components/desktop/Desktop';
 import { Laptopdetail } from './components/laptops/Laptopdetail';
 import { Accessoriesdetail } from './components/accesories/Accessoriesdetail';
+import { Desktopdetail } from './components/desktop/Desktopdetail';
 function App() {
   return (
     <>
@@ -22,9 +23,10 @@ function App() {
         <Route path="/signup" element={<Signup />}/>
         <Route path='/laptop' element={<Laptop/>} />
         <Route path='/accessories' element={<Accessories/>} />
-        <Route path='/custompc' element={<Custompc/>} />
+        <Route path='/desktop' element={<Desktop/>} />
         <Route path= '/laptopdetail' element={<Laptopdetail/>} />
         <Route path='/accessoriesdetail' element={<Accessoriesdetail/>}/>
+        <Route path='/desktopdetail' element={<Desktopdetail/>}/>
      </Routes>
      </div>
       </Router>
