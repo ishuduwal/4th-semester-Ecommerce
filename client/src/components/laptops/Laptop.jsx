@@ -28,7 +28,7 @@ export const Laptop = () => {
   return (
     <div className='laptop'>
       {laptop && laptop.map((item) =>
-        <Link onClick={(e)=>LaptopSelectedHandler(e,item)} className='item'>
+        <Link onClick={(e)=>LaptopSelectedHandler(e,item)} className='laptop-item'>
         <img src={dellinspiron} alt="Dell Inspiron" className='item-image' />
         <div className='text-description text-base text-center mt-4'>
             <p className='mb-2'>{item.title} {item.cpu} / {item.ram } RAM / {item.storage} SSD / {item.display} FHD Display</p>

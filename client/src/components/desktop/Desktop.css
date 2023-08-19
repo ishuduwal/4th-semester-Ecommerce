@@ -5,16 +5,18 @@
     grid-template-columns: repeat(4,1fr);
     place-items: center;
     row-gap: 1.5rem;
-    margin-top: 5rem;
 }
 .item{
-    height:20rem;
+    height:auto;
     width: 18rem;
     padding: 1rem;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     cursor: pointer;
     background-color: #fff;
     display: block;
+}
+.item:hover{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 .item-image{
     height: 11rem;
