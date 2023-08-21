@@ -33,10 +33,10 @@ export const Signup = async (req,res) =>{
 export const Login = async (req, res) => {
     const user = req.body;
     try{
-        const userDB = await User.finOne({ email: user.email, password: user.password })
+        const userDB = await User.findOne({ email: user.email, password: user.password })
         if (!userDB) return res.status(404).json(false);
-        res.status(201).json(userDB);
+        res.status(201).json(userDB.name);
     }catch (error){
-        res.status(401).json(false);
+        res.status(404).json(false);
     }
 }

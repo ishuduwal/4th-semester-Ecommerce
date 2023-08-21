@@ -1,9 +1,15 @@
 import React, {useState} from 'react';
+import { useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
+import { Sidebar } from './Sidebar';
 export const Navbar = () => {
 
   const [clicked, setClicked] = useState(false);
   const navigate = useNavigate();
+  const [isUser, setIsUser] = useState(null);
+  const [isSidebar, setIsSidebar] = useState(false);
+
+  
 
   const handleClick = () => {
     setClicked(!clicked);
@@ -23,6 +29,15 @@ export const Navbar = () => {
     e.preventDefault();
     navigate('/desktop',{state:e.target.textContent})
   }
+  useEffect(() => {
+    const checkUser = () => {
+      var user = window.localStorage.getItem("user");
+      if (user) {
+        setIsUser(user)
+      }
+    }
+    checkUser();
+  },[])
   return (
     <>
     <nav>
@@ -61,12 +76,13 @@ export const Navbar = () => {
     </div>
     <div className='search-section'>
         <div className='srch'>
-          <input type='text' placeholder='Enter keywords to search...' id='search'/>
+            <input type='text' placeholder='Enter keywords to search...' id='search' />
           <i className='fa fa-search'></i>
         </div>
         <div className='login-signup'>
             <div>
-             <Link to="/login"><i class="fa-solid fa-user"></i></Link>
+              { isUser ? <button onClick={()=>setIsSidebar(true)}><i class="large material-icons mb-2">account_circle</i></button>: <Link to="/login"><i class="fa-solid fa-user"></i></Link>}
+              {isSidebar ? <Sidebar setIsSidebar={ setIsSidebar } />: ""}
             </div>
             <div>
               <i class="fa-solid fa-cart-shopping"></i>

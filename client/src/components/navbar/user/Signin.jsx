@@ -22,6 +22,7 @@ export const Signin = () => {
     const res =  await Login(user);
     setIsLogin(res);
     if (res == false) return;
+    window.localStorage.setItem("user",res)
     navigate('/');
     console.log(res)
   }
