@@ -1,6 +1,6 @@
 import React from 'react'
 import './Admin.css'
-export const Product = () => {
+export const Managelaptop = () => {
   return (
     <div className='product'>
       <table className='admin-laptop'>
@@ -18,6 +18,11 @@ export const Product = () => {
           <th className='opt-btn'>Option</th>
         </tr>
         <tr>
+          <td colSpan="10">
+            <button><i class="fa-solid fa-plus"></i></button>
+          </td>
+        </tr>
+        <tr>
           <td>1</td>
           <td>Dell inspiron 15 5001</td>
           <td>Laptop</td>
@@ -29,8 +34,8 @@ export const Product = () => {
           <td>ips 15.5inch</td>
           <td>95,000</td>
           <td>
-            <button className='laptop-btn btn-edit'>Edit</button>
-            <button className='laptop-btn'>Delete</button>
+            <button>Edit<i class="fa-solid fa-pen-to-square"></i></button>
+            <button>Delete<i class="fa-solid fa-trash"></i></button>
           </td>
         </tr>
       </table>

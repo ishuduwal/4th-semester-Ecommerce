@@ -10,8 +10,9 @@ import { Desktop } from './components/desktop/Desktop';
 import { Laptopdetail } from './components/laptops/Laptopdetail';
 import { Accessoriesdetail } from './components/accesories/Accessoriesdetail';
 import { Desktopdetail } from './components/desktop/Desktopdetail';
-import { Product } from './components/admin/Product';
-import { User } from './components/admin/User';
+import { Managelaptop } from './components/admin/Managelaptop';
+import { Manageuser } from './components/admin/Manageuser';
+import { Manageaccessories } from './components/admin/Manageaccessories';
 function App() {
   return (
     <>
@@ -29,8 +30,9 @@ function App() {
         <Route path= '/laptopdetail' element={<Laptopdetail/>} />
         <Route path='/accessoriesdetail' element={<Accessoriesdetail/>}/>
         <Route path='/desktopdetail' element={<Desktopdetail/>}/>
-        <Route path='/managelaptop' element={<Product/>}/>
-        <Route path='/manageuser' element={<User/>}/>
+        <Route path='/managelaptop' element={<Managelaptop/>}/>
+        <Route path='/manageuser' element={<Manageuser/>}/>
+        <Route path='/manageaccessories' element={<Manageaccessories/>}/>
      </Routes>
      </div>
       </Router>
