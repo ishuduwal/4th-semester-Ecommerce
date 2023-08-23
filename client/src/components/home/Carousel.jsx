@@ -48,7 +48,7 @@ export const Carousel = () => {
 
   return (
     <>
-      <div className="imageCarousel flex justify-center items-center pt-20">
+      <div className="imageCarousel flex justify-center items-center">
         <div className="textOverlay">
           <h2 className="text-2xl font-bold img-text">{images[currentImage].title}</h2>
         </div>

@@ -10,7 +10,7 @@
 }
 .laptop-item{
     height: auto;
-    width: 20rem;
+    width: 17rem;
     padding: 1rem;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     cursor: pointer;
@@ -24,6 +24,11 @@
     height: 10rem;
     width: 100%;
     object-fit: cover;
+    transition: 1s;
+}
+.item-image:hover{
+    scale: 1.1;
+    transition: 1s;
 }
 .add-to-cart{
     height: 2.5rem;
