@@ -3,7 +3,7 @@
 ![image](https://github.com/ishuduwal/4th-semester-Ecommerce/assets/115239975/171695f6-24a0-4578-9b55-521e02ff4f75)
 <table>
   <tr>
-    <td><img src="https://github.com/ishuduwal/4th-semester-Ecommerce/assets/115239975/f9104cbd-2de6-4d8e-82cb-6f8529c272db" alt="Image 1" width="100" height="100"></td>
+    <td><img src="https://github.com/ishuduwal/4th-semester-Ecommerce/assets/115239975/f9104cbd-2de6-4d8e-82cb-6f8529c272db" alt="Image 1" width="200" height="400"></td>
     <td><img src="https://github.com/ishuduwal/4th-semester-Ecommerce/assets/115239975/5132cfcd-14c4-4148-b22f-2735facbd452" alt="Image 2" width="100" height="100"></td>
     <td><img src="https://github.com/ishuduwal/4th-semester-Ecommerce/assets/115239975/5b1dd603-70a3-47d0-9512-ab6586a3ace5" alt="Image 3" width="100" height="100"></td>
   </tr>
