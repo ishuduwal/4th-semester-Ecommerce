@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import { useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { Sidebar } from './Sidebar';
@@ -9,6 +9,28 @@ export const Navbar = () => {
   const [isUser, setIsUser] = useState(null);
   const [isSidebar, setIsSidebar] = useState(false);
 
+  const [laptopMenuOpen, setLaptopMenuOpen] = useState(false);
+  const [accessoriesMenuOpen, setAccessoriesMenuOpen] = useState(false);
+  const LaptopMenu = ['Hp', 'Dell', 'Acer', 'Asus', 'Apple', 'Lenovo']
+  const AccessoriesMenu =['Keyboard','Mouse','Speaker','Storage','Mousepad','Graphics card','Headphone']
+  
+  const menuRef = useRef();
+  const dropdownRef = useRef();
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (
+        menuRef.current && !menuRef.current.contains(e.target) && dropdownRef.current && !dropdownRef.current.contains(e.target)
+      ) {
+        setLaptopMenuOpen(false);
+        setAccessoriesMenuOpen(false);
+      }
+    };
+  
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
   
 
   const handleClick = () => {
@@ -42,31 +64,41 @@ export const Navbar = () => {
     <>
     <nav>
     <div className="logo-toggle-btn">
-        <Link to="/"><p><span>T</span>echmart</p></Link>
-        <ul id="navbar" className={clicked ? "active" : ""}>
-          <li className='cursor-pointer'>Laptops<i class="fa-solid fa-caret-down"></i>
-           <ul>
-             <li><a onClick={(e)=>{LaptopHandler(e)}}>Dell</a></li>
-             <li><a onClick={(e)=>{LaptopHandler(e)}}>HP</a></li>
-             <li><a onClick={(e)=>{LaptopHandler(e)}}>Asus</a></li>
-             <li><a onClick={(e)=>{LaptopHandler(e)}}>Acer</a></li>
-             <li><a onClick={(e)=>{LaptopHandler(e)}}>Lenovo</a></li>
-             <li><a onClick={(e)=>{LaptopHandler(e)}}>Apple</a></li>
-           </ul>
-          </li>
-          <li className='cursor-pointer'>Accessories<i class="fa-solid fa-caret-down"></i>
-           <ul>
-             <li><a onClick={(e)=>{AccessoriesHandler(e)}}>Monitor</a></li>
-             <li><a onClick={(e)=>{AccessoriesHandler(e)}}>Keyboard</a></li>
-             <li><a onClick={(e)=>{AccessoriesHandler(e)}}>Speaker</a></li>
-             <li><a onClick={(e)=>{AccessoriesHandler(e)}}>Mouse</a></li>
-             <li><a onClick={(e)=>{AccessoriesHandler(e)}}>MousePad</a></li>
-             <li><a onClick={(e)=>{AccessoriesHandler(e)}}>Headphones</a></li>
-             <li><a onClick={(e)=>{AccessoriesHandler(e)}}>Graphics Card</a></li>
-             <li><a onClick={(e)=>{AccessoriesHandler(e)}}>Storage</a></li>
-           </ul>
-          </li>
-          <li className='cursor-pointer'><a onClick={(e)=>{DesktopHandler(e)}}>Desktop</a></li>
+        <Link to="/" className='logo-techmart'><p><span>T</span>echmart</p></Link>
+          <ul id="navbar" className={clicked ? "active" : ""}>
+            <div className='nav-item cursor-pointer'>
+              <div>
+              <div className='relative' ref={menuRef}>
+                  <p onClick={() => setLaptopMenuOpen(!laptopMenuOpen)} className='text-lg'>Laptop</p>
+               </div>
+              </div>
+              {laptopMenuOpen && (
+                  <div className='absolute dropdown-item' ref={dropdownRef}>
+                      <ul className='flex flex-col gap-4'>
+                          {LaptopMenu.map((menu) => (
+                              <li key={menu} onClick={()=>setLaptopMenuOpen(false)}><a onClick={(e)=>{LaptopHandler(e)}}>{menu}</a></li>
+                          ))}
+                      </ul>
+                  </div>
+              )}
+            </div>
+            <div className='nav-item cursor-pointer'>
+              <div>
+              <div className='relative' ref={menuRef}>
+                  <p onClick={() => setAccessoriesMenuOpen(!accessoriesMenuOpen)} className='text-lg'>Accessories</p>
+               </div>
+              </div>
+              {accessoriesMenuOpen && (
+                  <div className='absolute dropdown-item access' ref={dropdownRef}>
+                      <ul className='flex flex-col gap-4'>
+                          {AccessoriesMenu.map((menu) => (
+                              <li key={menu} onClick={()=>setAccessoriesMenuOpen(false)}><a onClick={(e)=>{AccessoriesHandler(e)}}>{menu}</a></li>
+                          ))}
+                      </ul>
+                  </div>
+              )}
+            </div>
+          <div className='cursor-pointer text-lg nav-item-desktop'><a onClick={(e)=>{DesktopHandler(e)}}>Desktop</a></div>
         </ul>
         <div id='mobile'>
             <i id="bar" className={clicked ? 'fas fa-times' : 'fas fa-bars'}

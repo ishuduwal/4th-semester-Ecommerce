@@ -17,47 +17,6 @@ nav ul{
     padding-top: 0.9rem;
     gap: 2rem;
 }
-nav li{
-    position: relative;
-}
-nav ul ul{
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 8rem;
-}
-nav ul li:hover > ul{
-    display: inherit;
-    box-shadow: rgba(100, 100 ,111, 0.2)0px 7px 28px 0px;
-    background-color: #fff;
-}
-nav ul ul li{
-    float: none;
-}
-nav ul li ul li a:hover{
-    background-color:  #673de6;
-    color: #fff;
-    position: relative;
-}
-nav ul li ul li a{
-    display: block;
-    padding: 0.5rem 1rem;
-    text-decoration: none;
-    font-size: 0.9rem;
-}
-nav ul li a:after{
-    content: "";
-    position: absolute;
-    background-color: #000;
-    height: 2px;
-    left: 0;
-    bottom: -2px;
-    transition: 0.5s;
-}
-nav ul li a:hover:after{
-    width: 100%;
-}
 .logo-toggle-btn{
     display: flex;
     width: 50%;
@@ -66,13 +25,19 @@ nav ul li a:hover:after{
 .search-section, .login-signup{
     display: flex;
 }
-.logo-toggle-btn p{
+.logo-techmart{
     font-size: 1.3rem;
     font-weight: bold;
 }
 .logo-toggle-btn span{
     color: #673de6;
     font-size: 2rem;
+}
+.dropdown-item > ul{
+    background-color: #fff;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    width: auto;
+    padding: 0 1rem;
 }
 .fa-search{
     border: 1px solid #000;
@@ -145,37 +110,32 @@ nav ul li a:hover:after{
 }
 @media (max-width:860px) {
     .logo-toggle-btn > ul{
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: flex-start;
         position: fixed;
         top: 0;
         right: -905px;
         width: 100%;
         height: 100vh;
-        background-color: rgb(176, 241, 207);
+        background-color: #673de6;
+        display: grid !important;
+    }
+    .dropdown-item{
+        margin-left: 0.5rem;
+    }
+    .nav-item-desktop, .nav-item > div> div > p{
+        font-size: 1.3rem;
+        margin-left: 1rem;
+        color: #fff;
+    }
+    .dropdown-item > ul{
+        display: grid;
+        grid-template-columns: repeat(2,2fr);
+        place-items: center;
     }
     #navbar.active{
         right: -100px;
-    }
-    .logo-toggle-btn ul {
-        display: none;
-    }
-      
+    } 
     .logo-toggle-btn ul.active {
         display: block;
-    }
-    nav ul li:hover > ul{
-        display: grid;
-        grid-template-columns: repeat(2,2fr);
-        width: 100%;
-        height: 5rem;
-    }
-    nav ul li:nth-child(1){
-        margin-top: 5rem;
-    }
-    nav ul li:nth-child(2), nav ul li:nth-child(3){
-        margin-top: 10rem;
     }
     #mobile{
         display: block;
@@ -189,6 +149,9 @@ nav ul li a:hover:after{
     }
     #search{
         width: 60vw;
+    }
+    .fa-times{
+        color:#fff;
     }
 }
 @media (max-width:465px) {

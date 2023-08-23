@@ -25,7 +25,7 @@ export const Accessories = () => {
   return (
     <div className='accessories'>
       {accessories && accessories.map((item) =>
-        <Link onClick={(e) => AccessoriesSelectedHandler(e, item)} className='item'>
+        <Link onClick={(e) => AccessoriesSelectedHandler(e, item)} className='accessories-item'>
           <img src={corsair} alt="corsair-k70" className='item-image' />
           <div className='text-description text-base text-center mt-4'>
             <p className='mb-2'>{item.title}/{item.brand}/{item.weight}/{item.length}</p>

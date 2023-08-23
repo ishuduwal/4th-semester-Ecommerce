@@ -25,7 +25,7 @@ export const Desktop = () => {
   return (
       <div className='desktop'>
           {desktop && desktop.map((item) => 
-              <Link onClick={(e) => DesktopSelectedHandler(e, item)} className='item'>
+              <Link onClick={(e) => DesktopSelectedHandler(e, item)} className='desktop-item'>
                   <img src={omen} alt="hp-omen-40l" className='item-image' />
                   <div className='text-description text-base text-center mt-4'>
                       <p className='mb-2'>{item.title}/{item.brand}/{item.price}</p>
