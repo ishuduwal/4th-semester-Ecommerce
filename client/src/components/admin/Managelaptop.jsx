@@ -1,6 +1,24 @@
-import React from 'react'
+import React,{ useState, useRef, useEffect } from 'react'
 import './Admin.css'
 export const Managelaptop = () => {
+  const [isAddLaptopVisible, setIsAddLaptopVisible] = useState(false);
+  const addLaptopRef = useRef(null);
+
+  const toggleAddLaptop = () => {
+    setIsAddLaptopVisible(!isAddLaptopVisible);
+  }
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (addLaptopRef.current && !addLaptopRef.current.contains(event.target)) {
+        setIsAddLaptopVisible(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
   return (
     <div className='product'>
       <table className='admin-laptop'>
@@ -19,7 +37,7 @@ export const Managelaptop = () => {
         </tr>
         <tr>
           <td colSpan="10">
-            <button><i class="fa-solid fa-plus"></i></button>
+            <button onClick={toggleAddLaptop}><i class="fa-solid fa-plus"></i></button>
           </td>
         </tr>
         <tr>
@@ -39,6 +57,57 @@ export const Managelaptop = () => {
           </td>
         </tr>
       </table>
+      <div className='add-section'>
+      {isAddLaptopVisible && (
+        <div className='add-laptop' ref={addLaptopRef}>
+        <h3>Add Laptop</h3>
+          <div className='flex flex-col inputBox'>
+              <input type='text' name="name"/>
+              <label>Title</label>
+          </div>
+          <div className='flex flex-col inputBox'>
+              <input type='text' name="name"/>
+              <label>Brand</label>
+          </div>
+          <div className='flex flex-col inputBox'>
+              <input type='text' name="name"/>
+              <label>CPU</label>
+          </div>
+          <div className='flex flex-col inputBox'>
+              <input type='text' name="name"/>
+              <label>Graphics</label>
+          </div>
+          <div className='flex flex-col inputBox'>
+              <input type='text' name="name"/>
+              <label>RAM</label>
+          </div>
+          <div className='flex flex-col inputBox'>
+              <input type='text' name="name"/>
+              <label>Storage</label>
+          </div>
+          <div className='flex flex-col inputBox'>
+              <input type='text' name="name"/>
+              <label>Weight</label>
+          </div>
+          <div className='flex flex-col inputBox'>
+              <input type='text' name="name"/>
+              <label>Display</label>
+          </div>
+          <div className='flex flex-col inputBox'>
+              <input type='text' name="name"/>
+              <label>Price</label>
+          </div>
+          <div className='flex flex-col inputBox'>
+              <input type='file'/>
+              <label>Photo</label>
+        </div>
+        <div className='flex justify-between'>
+          <button className='add-btn-add bg-green-600'>Add</button>
+          <button className='cancel-btn bg-red-600'>Cancel</button>
+        </div>
+      </div>
+      )}
+      </div>
     </div>
   )
 }

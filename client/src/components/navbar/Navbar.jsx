@@ -113,8 +113,8 @@ export const Navbar = () => {
         </div>
         <div className='login-signup'>
             <div>
-              { isUser ? <button onClick={()=>setIsSidebar(true)}><i class="large material-icons mb-2">account_circle</i></button>: <Link to="/login"><i class="fa-solid fa-user"></i></Link>}
-              {isSidebar ? <Sidebar setIsSidebar={ setIsSidebar } />: ""}
+              { isUser ?( <button onClick={()=>setIsSidebar(true)}><i class="large material-icons mb-2">account_circle</i></button>): <Link to="/login"><i class="fa-solid fa-user"></i></Link>}
+              {isSidebar ? <Sidebar isSidebar={isSidebar} setIsSidebar={ setIsSidebar } />: ""}
             </div>
             <div>
               <i class="fa-solid fa-cart-shopping"></i>

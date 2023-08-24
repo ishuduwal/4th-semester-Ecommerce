@@ -1,20 +1,39 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import './Navbar.css'
-export const Sidebar = ({setIsSidebar}) => {
-  
+import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import './Navbar.css';
+
+export const Sidebar = ({ isSidebar, setIsSidebar }) => {
+  const sidebarRef = useRef(null);
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (isSidebar && sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+        setIsSidebar(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isSidebar, setIsSidebar]);
+  const toggleSidebar = () => {
+    setIsSidebar(!isSidebar);
+  };
   return (
-    <div className='sidebar'>
-          <Link to="/managelaptop" onClick={()=>{setIsSidebar(false)}}>
+    <div ref={sidebarRef} className={`sidebar ${isSidebar ? 'open' : ''}`}>
+      <button onClick={toggleSidebar} className='toggle-button'>
+      </button>
+      <div className='sidebar-content'>
+        <Link to="/managelaptop" onClick={() => setIsSidebar(false)}>
           <button className='manage-item'>Manage Laptop</button>
-          </Link>
-          <Link to="/manageaccessories" onClick={()=>{setIsSidebar(false)}}>
+        </Link>
+        <Link to="/manageaccessories" onClick={() => setIsSidebar(false)}>
           <button className='manage-item'>Accessories</button>
-          </Link>
-          <Link to="/manageuser" onClick={()=>{setIsSidebar(false)}}>
+        </Link>
+        <Link to="/manageuser" onClick={() => setIsSidebar(false)}>
           <button className='manage-item'>Manage User</button>
-          </Link>
-          <button className='logout'>Logout</button>
+        </Link>
+        <button className='logout'>Logout</button>
+      </div>
     </div>
-  )
-}
+  );
+};

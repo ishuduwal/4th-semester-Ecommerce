@@ -37,7 +37,7 @@ nav ul{
     background-color: #fff;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
     width: auto;
-    padding: 0 1rem;
+    padding:1rem;
 }
 .fa-search{
     border: 1px solid #000;
@@ -168,9 +168,10 @@ nav ul{
     position: fixed;
     right: 0;
     top: 4rem;
-    background-color: rgb(221, 210, 210);
+    background-color: rgba(103, 150, 232, 0.9);
     z-index: 100;
     padding: 2rem 0 0 2rem;
+    backdrop-filter: blur(10px);
 }
 .logout, .manage-item{
     background-color: #673de6;

@@ -52,7 +52,6 @@ export const Footer = () => {
         </div>
         <div className='text-center'>
             <p>© 2022 Techmart. All rights reserved - Developed by IshuDuwal and Ravi Basnet</p>
-            <p>"Dive into our digital universe and find the perfect gadget that complements your lifestyle"</p>
         </div>
       </div>
     </>

@@ -28,7 +28,10 @@ export const Signup = () => {
     navigate('/')
     }
   }
-  
+  const [show, setShow]=useState(false)
+  const handleShow=()=>{
+    setShow(!show)
+  }
   return (
     <>
         <div className='signin flex justify-center items-center'>
@@ -42,9 +45,12 @@ export const Signup = () => {
               <input type='text' name="email" value={user.email} required='required' onChange={ handleChange }/>
               <label>Email</label>
             </div>
-            <div className='flex flex-col inputBox'>
-              <input type='password' name="password" value={user.password} required='required' onChange={ handleChange }/>
+            <div className='flex inputBox'>
+              <input type={show? "text":"password"} name="password" id='password' value={ user.password } required='required' onChange={ handleChange }/>
               <label>Password</label>
+              <div id='eyeball' onClick={handleShow}>
+                {show ? (<i className='fa-regular fa-eye cursor-pointer'></i>):(<i className='fa-regular fa-eye-slash cursor-pointer'></i>)}
+              </div>
             </div>
             <div className='justify-center flex items-center'>
               <button className='login-btn' onClick={(e)=> SignupHandler(e) }>Sign up</button>

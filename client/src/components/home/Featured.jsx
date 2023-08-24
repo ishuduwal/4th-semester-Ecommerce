@@ -14,42 +14,42 @@ export const Featured = () => {
         <div className='parent'>
           <div className='flex items-center flex-row justify-around div1'>
             <div>
-              <p>Laptop</p>
+              <p className='text-white'>Laptop</p>
               <button className='home-btn'>See Product</button>
             </div>
             <div><img src={nitro} className='home-product-img'/></div>
           </div>
           <div className='flex items-center flex-row justify-around div2'>
             <div>
-              <p>Monitor</p>
+              <p className='text-white'>Monitor</p>
               <button className='home-btn'>See Product</button>
             </div>
             <div><img src={monitor} className='home-product-img'/></div>
           </div>
           <div className='flex items-center flex-row justify-around div3'>
             <div>
-              <p>Keyboard</p>
+              <p className='text-white'>Keyboard</p>
               <button className='home-btn'>See Product</button>
             </div>
             <div><img src={logitechkeyboard} className='home-product-img'/></div>
           </div>
           <div className='flex items-center flex-row justify-around div4'>
             <div>
-              <p>Speaker</p>
+              <p className='text-black'>Speaker</p>
               <button className='home-btn'>See Product</button>
             </div>
             <div><img src={logitechspeaker} className='home-product-img'/></div>
           </div>
           <div className='flex items-center flex-row justify-around div5'>
             <div>
-              <p>Mouse</p>
+              <p className='text-white'>Mouse</p>
               <button className='home-btn'>See Product</button>
             </div>
             <div><img src={logitechmouse} className='home-product-img'/></div>
           </div>
           <div className='flex items-center flex-row justify-around div6'>
             <div>
-              <p>Headphone</p>
+              <p className='text-black'>Headphone</p>
               <button className='home-btn'>See Product</button>
             </div>
             <div><img src={fantecheadphone} className='home-product-img'/></div>
