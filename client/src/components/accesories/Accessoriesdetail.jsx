@@ -28,7 +28,7 @@ export const Accessoriesdetail = () => {
             <div className='detail-text'>
                 <h2 className='text-xl font-bold'>{state.title}</h2>
                 <h3 className='font-bold'>Product Detail</h3>
-                <p className='flex'><p className='mr-1 font-semibold'>Brand:</p>{state.brand}</p>
+                <p className='flex'><p className='mr-1 font-semibold'>Category:</p>{state.category}</p>
                 <p className='flex'><p className='mr-1 font-semibold'>Length:</p>{state.length}</p>
                 <p className='flex'><p className='mr-1 font-semibold'>Weight:</p>{state.weight}</p>
                 <p className='flex'><p className='mr-1 font-semibold'>Connection:</p>{state.connection}</p>

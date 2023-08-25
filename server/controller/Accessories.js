@@ -10,13 +10,13 @@ export const GetAccessories = async (req, res) => {
 }
 
 export const AddAccessories = async (req, res) => {
-    const { title, brand, weight, length, connection, price } = req.body
+    const { title, category, weight, length, connection, price } = req.body
     try {
         let accessories = await Accessories.findOne({ title: title })
         if (accessories) { res.status(200).json({ message: "Accessories already added" }) }
         else {
             const newAccessories = new Accessories({
-                title, brand, weight, length, connection, price
+                title, category, weight, length, connection, price
             })
             await newAccessories.save()
             res.status(201).json({message:"Accessories added"})

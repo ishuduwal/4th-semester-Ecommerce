@@ -28,7 +28,7 @@ export const Accessories = () => {
         <Link onClick={(e) => AccessoriesSelectedHandler(e, item)} className='accessories-item'>
           <img src={corsair} alt="corsair-k70" className='item-image' />
           <div className='text-description text-base text-center mt-4'>
-            <p className='mb-2'>{item.title}/{item.brand}/{item.weight}/{item.length}</p>
+            <p className='mb-2'>{item.title}/{item.category}/{item.weight}/{item.length}</p>
             <button className='add-to-cart'>Add to cart</button>
           </div>
         </Link>

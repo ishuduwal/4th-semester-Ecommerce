@@ -5,7 +5,7 @@ const AccessoriesSchema = new mongoose.Schema({
         type: String,
         require:true
     },
-    brand: {
+    category: {
         type: String,
         require:true
     },
