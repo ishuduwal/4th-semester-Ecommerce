@@ -39,17 +39,20 @@ export const Navbar = () => {
 
   const LaptopHandler = (e) =>{
     e.preventDefault();
-    navigate('/laptop',{state:e.target.textContent})
+    navigate('/laptop', { state: e.target.textContent })
+    setClicked(false)
   }
 
   const AccessoriesHandler = (e) => {
     e.preventDefault();
-    navigate('/accessories',{state:e.target.textContent})
+    navigate('/accessories', { state: e.target.textContent })
+    setClicked(false)
   }
 
   const DesktopHandler = (e) => {
     e.preventDefault();
-    navigate('/desktop',{state:e.target.textContent})
+    navigate('/desktop', { state: e.target.textContent })
+    setClicked(false)
   }
   useEffect(() => {
     const checkUser = () => {
@@ -58,6 +61,7 @@ export const Navbar = () => {
         setIsUser(user)
       }
     }
+
     checkUser();
   },[])
   return (

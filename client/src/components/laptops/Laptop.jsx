@@ -16,14 +16,20 @@ export const Laptop = () => {
     e.preventDefault();
     navigate('/laptopdetail', { state:item})
   }
+
   useEffect(() => {
     const FetchLaptop = async()=> {
-      const res = await GetLaptop();
+      var res = await GetLaptop();
+      console.log(res)
+      res = res.filter(item => item.brand == state.toLowerCase())
       setLaptop(res);
       console.log(res)
     }
+
     FetchLaptop()
-    },[])
+  }, [state])
+
+ 
 
   return (
     <div className='laptop'>

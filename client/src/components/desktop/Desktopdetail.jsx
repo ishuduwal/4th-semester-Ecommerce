@@ -8,7 +8,6 @@ export const Desktopdetail = () => {
 
     const [quantity, setQuantity] = useState(1);
     const [totalPrice, setTotalPrice] = useState(parseInt(state.price));
-    console.log(typeof parseInt(state.price))
 
     const handleAddClick = () => {
         setQuantity(quantity + 1);

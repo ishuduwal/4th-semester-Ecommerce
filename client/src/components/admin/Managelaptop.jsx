@@ -1,13 +1,31 @@
 import React,{ useState, useRef, useEffect } from 'react'
+import { AddLaptop, GetLaptop } from '../../function/Laptop';
 import './Admin.css'
 export const Managelaptop = () => {
   const [isAddLaptopVisible, setIsAddLaptopVisible] = useState(false);
+  const [laptops, setLaptops] = useState([]);
+  const [laptop, setLaptop] = useState("");
   const addLaptopRef = useRef(null);
 
   const toggleAddLaptop = () => {
     setIsAddLaptopVisible(!isAddLaptopVisible);
   }
+
+  const AddLaptopHandler = async (e) => {
+    e.preventDefault();
+    const res = await AddLaptop(laptop);
+    console.log(laptop);
+    FetchLaptop();
+  }
+  const FetchLaptop = async () => {
+    const res = await GetLaptop();
+    setLaptops(res);
+    console.log(res,"hello")
+  }
+
   useEffect(() => {
+
+    FetchLaptop();
     function handleClickOutside(event) {
       if (addLaptopRef.current && !addLaptopRef.current.contains(event.target)) {
         setIsAddLaptopVisible(false);
@@ -18,6 +36,8 @@ export const Managelaptop = () => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
+
+    
   }, []);
   return (
     <div className='product'>
@@ -40,61 +60,71 @@ export const Managelaptop = () => {
             <button onClick={toggleAddLaptop}><i class="fa-solid fa-plus"></i></button>
           </td>
         </tr>
-        <tr>
-          <td>1</td>
-          <td>Dell inspiron 15 5001</td>
-          <td>Laptop</td>
-          <td>amd ryzen</td>
-          <td>Nvidia 3050</td>
-          <td>8gb</td>
-          <td>1Tb ssd</td>
-          <td>1.5kg</td>
-          <td>ips 15.5inch</td>
-          <td>95,000</td>
-          <td>
-            <button>Edit<i class="fa-solid fa-pen-to-square"></i></button>
-            <button>Delete<i class="fa-solid fa-trash"></i></button>
-          </td>
-        </tr>
+          {laptops && laptops.map((laptop,i) =>
+          <tr>
+            <td>{ i + 1}</td>
+            <td>{ laptop.title }</td>
+            <td>{ laptop.brand }</td>
+            <td>{ laptop.cpu }</td>
+            <td>{ laptop.graphics }</td>
+            <td>{ laptop.ram }</td>
+            <td>{ laptop.storage }</td>
+            <td>{ laptop.weight }</td>
+            <td>{ laptop.display }</td>
+            <td>{ laptop.price }</td>
+            <td>
+              <button>Edit<i class="fa-solid fa-pen-to-square"></i></button>
+              <button>Delete<i class="fa-solid fa-trash"></i></button>
+            </td>
+          </tr>
+          ) 
+          }
       </table>
       <div className='add-section'>
       {isAddLaptopVisible && (
         <div className='add-laptop' ref={addLaptopRef}>
         <h3>Add Laptop</h3>
           <div className='flex flex-col inputBox'>
-              <input type='text' name="name"/>
+          <input type='text' onChange={(e)=>setLaptop({...laptop,title:e.target.value})} name="name"/>
               <label>Title</label>
           </div>
-          <div className='flex flex-col inputBox'>
-              <input type='text' name="name"/>
-              <label>Brand</label>
+            <div className='flex flex-col inputBox'>
+              <select className='h-12 brand-option' onSelect={(e)=>setLaptop({...laptop,brand:e.target.value})}>
+                <option selected hidden>Brand</option>
+                <option value="hp" >Hp</option>
+                <option value="dell" >Dell</option>
+                <option value="acer" >Acer</option>
+                <option value="asus" >Asus</option>
+                <option value="apple" >Apple</option>
+                <option value="lenovo" >Lenovo</option>
+              </select>
           </div>
           <div className='flex flex-col inputBox'>
-              <input type='text' name="name"/>
+              <input type='text' name="name" onChange={(e)=>setLaptop({...laptop,cpu:e.target.value})}/>
               <label>CPU</label>
           </div>
           <div className='flex flex-col inputBox'>
-              <input type='text' name="name"/>
+              <input type='text' name="name" onChange={(e)=>setLaptop({...laptop,graphics:e.target.value})}/>
               <label>Graphics</label>
           </div>
           <div className='flex flex-col inputBox'>
-              <input type='text' name="name"/>
+              <input type='text' name="name" onChange={(e)=>setLaptop({...laptop,ram:e.target.value})}/>
               <label>RAM</label>
           </div>
           <div className='flex flex-col inputBox'>
-              <input type='text' name="name"/>
+              <input type='text' name="name" onChange={(e)=>setLaptop({...laptop,storage:e.target.value})}/>
               <label>Storage</label>
           </div>
           <div className='flex flex-col inputBox'>
-              <input type='text' name="name"/>
+              <input type='text' name="name" onChange={(e)=>setLaptop({...laptop,weight:e.target.value})}/>
               <label>Weight</label>
           </div>
           <div className='flex flex-col inputBox'>
-              <input type='text' name="name"/>
+              <input type='text' name="name" onChange={(e)=>setLaptop({...laptop,display:e.target.value})}/>
               <label>Display</label>
           </div>
           <div className='flex flex-col inputBox'>
-              <input type='text' name="name"/>
+              <input type='text' name="name" onChange={(e)=>setLaptop({...laptop,price:e.target.value})}/>
               <label>Price</label>
           </div>
           <div className='flex flex-col inputBox'>
@@ -102,7 +132,7 @@ export const Managelaptop = () => {
               <label>Photo</label>
         </div>
         <div className='flex justify-between'>
-          <button className='add-btn-add bg-green-600'>Add</button>
+          <button className='add-btn-add bg-green-600' onClick={(e)=>AddLaptopHandler(e)} >Add</button>
           <button className='cancel-btn bg-red-600'>Cancel</button>
         </div>
       </div>

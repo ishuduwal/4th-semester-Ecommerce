@@ -4,12 +4,11 @@ import dellinspiron from '../../assets/img/Dell laptop/dell-inspiron-15-5515.jpg
 import './Laptop.css'
 export const Laptopdetail = () => {
   const location = useLocation()
-  const { state } = location
+  var { state } = location
   
         const [quantity, setQuantity] = useState(1);
         const [totalPrice, setTotalPrice] = useState(parseInt(state.price));
 
-  console.log(typeof parseInt(state.price))
   
         const handleAddClick = () => {
             setQuantity(quantity + 1);
