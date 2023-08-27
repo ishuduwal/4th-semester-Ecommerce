@@ -26,14 +26,6 @@
     }
 
 }
-.add-laptop{
-    height: auto;
-    width: 18rem;
-    display: grid;
-    place-items: center;
-    gap: 1rem;
-    background-color: #f1f1f1;
-}
 .add-laptop >div{
     width: 90%;
 }
@@ -43,12 +35,23 @@
     color: #fff;
 }
 .add-section{
-    height: 100vh;
+    height: 80vh;
     width: 100%;
-    display: grid;
-    place-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .brand-option{
     border: 1px solid #000;
     border-radius: 0.3rem;
+}
+.add-laptop{
+    display: grid;
+    grid-template-columns: repeat(2,2fr);
+    width: 50%;
+    height: auto;
+    background-color: #eeeeee;
+    padding: 1rem;
+    place-items: center;
+    gap: 1rem;
 }

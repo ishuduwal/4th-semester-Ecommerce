@@ -54,16 +54,6 @@ export const Navbar = () => {
     navigate('/desktop', { state: e.target.textContent })
     setClicked(false)
   }
-  useEffect(() => {
-    const checkUser = () => {
-      var user = window.localStorage.getItem("user");
-      if (user) {
-        setIsUser(user)
-      }
-    }
-
-    checkUser();
-  },[])
   return (
     <>
     <nav>

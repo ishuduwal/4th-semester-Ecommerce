@@ -74,7 +74,6 @@ export const Manageaccessories = () => {
       <div className='add-section'>
       {isAddAccessoriesVisible && (
         <div className='add-laptop' ref={addAccessoriesRef}>
-        <h3>Add Accessories</h3>
           <div className='flex flex-col inputBox'>
               <input type='text' name="name" onChange={(e)=>setAccessorie({...accessorie,title:e.target.value})} />
               <label>Title</label>

@@ -83,7 +83,6 @@ export const Managelaptop = () => {
       <div className='add-section'>
       {isAddLaptopVisible && (
         <div className='add-laptop' ref={addLaptopRef}>
-        <h3>Add Laptop</h3>
           <div className='flex flex-col inputBox'>
           <input type='text' onChange={(e)=>setLaptop({...laptop,title:e.target.value})} name="name"/>
               <label>Title</label>
