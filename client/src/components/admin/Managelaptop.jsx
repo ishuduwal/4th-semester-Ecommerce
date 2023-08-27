@@ -16,12 +16,17 @@ export const Managelaptop = () => {
     const res = await AddLaptop(laptop);
     console.log(laptop);
     FetchLaptop();
+    setIsAddLaptopVisible(false);
   }
   const FetchLaptop = async () => {
     const res = await GetLaptop();
     setLaptops(res);
     console.log(res,"hello")
   }
+
+  const handleCancelClick = () => {
+    setIsAddLaptopVisible(false);
+  };
 
   useEffect(() => {
 
@@ -132,7 +137,7 @@ export const Managelaptop = () => {
         </div>
         <div className='flex justify-between'>
           <button className='add-btn-add bg-green-600' onClick={(e)=>AddLaptopHandler(e)} >Add</button>
-          <button className='cancel-btn bg-red-600'>Cancel</button>
+          <button className='cancel-btn bg-red-600' onClick={handleCancelClick}>Cancel</button>
         </div>
       </div>
       )}

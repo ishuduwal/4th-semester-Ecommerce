@@ -14,12 +14,18 @@ export const Manageaccessories = () => {
       const res = await AddAccessories(accessorie);
       console.log(accessorie);
       FetchAccessories();
+      setIsAddAccessoriesVisible(false);
     }
     const FetchAccessories = async () =>{
       const res = await GetAccessories();
       setAccessories(res);
       console.log(res, "hello")
     }
+    
+    const handleCancelClick = () => {
+      setIsAddAccessoriesVisible(false);
+    };
+    
     useEffect(() => {
       FetchAccessories();
       function handleClickOutside(event) {
@@ -120,7 +126,7 @@ export const Manageaccessories = () => {
         </div>
         <div className='flex justify-between'>
           <button className='add-btn-add bg-green-600' onClick={(e)=>AddAccessoriesHandler(e)}>Add</button>
-          <button className='cancel-btn bg-red-600'>Cancel</button>
+          <button className='cancel-btn bg-red-600' onClick={handleCancelClick}>Cancel</button>
         </div>
       </div>
       )}
