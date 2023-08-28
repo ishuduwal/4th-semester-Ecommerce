@@ -55,21 +55,21 @@ export const Manageaccessories = () => {
           <th className='opt-btn'>Option</th>
         </tr>
         <tr>
-          <td colSpan="10">
+          <td colSpan="11">
             <button onClick={toggleAddAccessories}><i class="fa-solid fa-plus"></i></button>
           </td>
         </tr>
         {accessories && accessories.map((accessorie, i) =>
           <tr>
-          <td>{i+1}</td>
-          <td>{accessorie.title}</td>
-          <td>{accessorie.category}</td>
-          <td>{accessorie.length}</td>
-          <td>{accessorie.storage}</td>
-          <td>{accessorie.width}</td>
-          <td>{accessorie.connection}</td>
-          <td>{accessorie.weight}</td>
-          <td>{accessorie.price}</td>
+          <td data-label ="S.N:">{i+1}</td>
+          <td data-label ="Title:">{accessorie.title}</td>
+          <td data-label ="Category:">{accessorie.category}</td>
+          <td data-label ="Length:">{accessorie.length}</td>
+          <td data-label ="Storage:">{accessorie.storage}</td>
+          <td data-label ="Width:">{accessorie.width}</td>
+          <td data-label ="Connection:">{accessorie.connection}</td>
+          <td data-label ="Weight:">{accessorie.weight}</td>
+          <td data-label ="Price:">{accessorie.price}</td>
           <td>
             <button>Edit<i class="fa-solid fa-pen-to-square"></i></button>
             <button>Delete<i class="fa-solid fa-trash"></i></button>

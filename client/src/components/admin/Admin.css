@@ -16,10 +16,6 @@
 .fa-pen-to-square{
     margin-right: 1rem;
 }
-.admin-laptop, th, td{
-    border-right: 1px solid #000;
-    border-bottom: 1px solid #000;
-}
 @media (max-width: 1200px) {
     .product{
         margin-top: 8rem;
@@ -54,4 +50,47 @@
     padding: 1rem;
     place-items: center;
     gap: 1rem;
+}
+@media (max-width:1000px) {
+    .add-laptop{
+        grid-template-columns: repeat(1,1fr);
+        position: fixed;
+    }
+}
+table > tr > th, table > tr > td{
+    border: 1px solid #ddd;
+}
+th{
+    background-color: #d4d4d4;
+    height: 3rem;
+}
+tr:nth-child(even){
+    background-color: #ededed;
+    height: 2.5rem;
+}
+tr:nth-child(odd){
+    background-color: #dfe1e7;
+    height: 2.5rem;
+}
+@media (max-width:1200px) {
+    table > tr > th{
+        display: none;
+    }
+    table > tr > td{
+        display: block;
+        width: 100%;
+        text-align: left !important;
+        padding-left: 35%;
+        position: relative;
+    }
+    table > tr> td::before{
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 1rem;
+        font-size: 1.1rem;
+        font-weight: bold;
+        text-align: left;
+    }
 }

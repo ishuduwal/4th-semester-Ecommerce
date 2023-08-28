@@ -61,22 +61,22 @@ export const Managelaptop = () => {
           <th className='opt-btn'>Option</th>
         </tr>
         <tr>
-          <td colSpan="10">
+          <td colSpan="11">
             <button onClick={toggleAddLaptop}><i class="fa-solid fa-plus"></i></button>
           </td>
         </tr>
           {laptops && laptops.map((laptop,i) =>
           <tr>
-            <td>{ i + 1}</td>
-            <td>{ laptop.title }</td>
-            <td>{ laptop.brand }</td>
-            <td>{ laptop.cpu }</td>
-            <td>{ laptop.graphics }</td>
-            <td>{ laptop.ram }</td>
-            <td>{ laptop.storage }</td>
-            <td>{ laptop.weight }</td>
-            <td>{ laptop.display }</td>
-            <td>{ laptop.price }</td>
+            <td data-label ="S.N:">{ i + 1}</td>
+            <td data-label ="Title:">{ laptop.title }</td>
+            <td data-label ="Brand:">{ laptop.brand }</td>
+            <td data-label ="CPU:">{ laptop.cpu }</td>
+            <td data-label ="Graphics:">{ laptop.graphics }</td>
+            <td data-label ="RAM:">{ laptop.ram }</td>
+            <td data-label ="Storage:">{ laptop.storage }</td>
+            <td data-label ="Weight:">{ laptop.weight }</td>
+            <td data-label ="Display:">{ laptop.display }</td>
+            <td data-label ="Price:">{ laptop.price }</td>
             <td>
               <button>Edit<i class="fa-solid fa-pen-to-square"></i></button>
               <button>Delete<i class="fa-solid fa-trash"></i></button>
