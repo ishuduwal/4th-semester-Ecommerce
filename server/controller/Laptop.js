@@ -29,7 +29,7 @@ export const AddLaptop = async (req, res) => {
 
 export const DeleteLaptop = async (req, res) => {
     try {
-        const { id } = req.body;
+        const { id } = req.params;
         if (!id) {
             return res.status(400).json({ message: 'Laptop ID is missing in the request body' });
         }

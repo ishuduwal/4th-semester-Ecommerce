@@ -25,3 +25,20 @@ export const AddAccessories = async (req, res) => {
         res.status(401).json({message: error.message})
     }
 }
+
+export const DeleteAccessories = async (req, res) => {
+    try {
+        const { id } = req.body;
+        if (!id) {
+            return res.status(400).json({message:'Accessorie ID is missing'})
+        }
+        const accessorie = await Accessories.findOneAndDelete({ _id: id });
+        if (!accessorie) {
+            return res.status(404).json({message:'Accessorie not found'})
+        }
+        res.status(200).json({message:'Accessorie deleted sucessfully'})
+    } catch (error) {
+        console.error('error deleting accessorie:', error)
+        res.status(500).json({message:'Error deleting accessorie',error:error.message})
+    }
+}

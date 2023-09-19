@@ -16,3 +16,6 @@ export const AddLaptop = async (laptop) => {
         console.log(error);
     }
 }
+export const DeleteLaptop = async (id) => {
+    
+}
