@@ -8,7 +8,6 @@
 }
 .admin-laptop{
     width: 100%;
-    overflow: auto;
 }
 .admin-laptop > tr >td{
     text-align: center;
@@ -50,6 +49,8 @@
     padding: 1rem;
     place-items: center;
     gap: 1rem;
+    top: 4rem;
+    position: fixed;
 }
 @media (max-width:1000px) {
     .add-laptop{

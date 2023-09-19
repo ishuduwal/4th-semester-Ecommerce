@@ -26,3 +26,20 @@ export const AddLaptop = async (req, res) => {
         res.status(401).json({message: error.message})
     }
 }
+
+export const DeleteLaptop = async (req, res) => {
+    try {
+        const { id } = req.body;
+        if (!id) {
+            return res.status(400).json({ message: 'Laptop ID is missing in the request body' });
+        }
+        const laptop = await Laptop.findOneAndDelete({ _id: id });
+        if (!laptop) {
+            return res.status(404).json({ message: 'Laptop not found' });
+        }
+        res.status(200).json({ message: 'Laptop deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting laptop:', error);
+        res.status(500).json({ message: 'Error deleting laptop', error: error.message });
+    }
+};
