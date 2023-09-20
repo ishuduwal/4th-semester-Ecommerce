@@ -13,6 +13,8 @@ import { Desktopdetail } from './components/desktop/Desktopdetail';
 import { Managelaptop } from './components/admin/Managelaptop';
 import { Manageuser } from './components/admin/Manageuser';
 import { Manageaccessories } from './components/admin/Manageaccessories';
+import { Managedesktop } from './components/admin/Managedesktop';
+
 function App() {
   return (
     <>
@@ -33,6 +35,7 @@ function App() {
         <Route path='/managelaptop' element={<Managelaptop/>}/>
         <Route path='/manageuser' element={<Manageuser/>}/>
         <Route path='/manageaccessories' element={<Manageaccessories/>}/>
+        <Route path='/managedesktop' element={<Managedesktop/>}/>
      </Routes>
      </div>
       </Router>

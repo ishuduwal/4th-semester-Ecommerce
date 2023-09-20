@@ -1,4 +1,5 @@
 import Desktop from '../model/Desktop.js';
+import mongoose from 'mongoose';
 
 export const GetDesktop = async (req, res) => {
     try {
@@ -30,7 +31,7 @@ export const AddDesktop = async (req, res) => {
 export const DeleteDesktop = async (req, res) => {
     try {
         const { id } = req.params;
-        if (!id) {
+        if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({message:'Desktop id is missing'})
         }
         const desktop = await Desktop.findOneAndDelete({ _id: id });

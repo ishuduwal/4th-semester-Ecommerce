@@ -17,11 +17,13 @@ export const Accessories = () => {
   useEffect(() => {
     const FetchAccessories = async () => {
       const res = await GetAccessories();
+      console.log(res)
+      res = res.filter(item => item.brand == state.toLowerCase())
       setAccessories(res);
       console.log(res);
     }
     FetchAccessories()
-  },[])
+  },[state])
   return (
     <div className='accessories'>
       {accessories && accessories.map((item) =>

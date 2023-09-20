@@ -24,13 +24,16 @@ export const Sidebar = ({ isSidebar, setIsSidebar }) => {
       </button>
       <div className='sidebar-content'>
         <Link to="/managelaptop" onClick={() => setIsSidebar(false)}>
-          <button className='manage-item'>Manage Laptop</button>
+          <button className='manage-item'>Laptop</button>
         </Link>
         <Link to="/manageaccessories" onClick={() => setIsSidebar(false)}>
           <button className='manage-item'>Accessories</button>
         </Link>
+        <Link to="/managedesktop" onClick={() => setIsSidebar(false)}>
+          <button className='manage-item'>Desktop</button>
+        </Link>
         <Link to="/manageuser" onClick={() => setIsSidebar(false)}>
-          <button className='manage-item'>Manage User</button>
+          <button className='manage-item'>User</button>
         </Link>
         <button className='logout'>Logout</button>
       </div>

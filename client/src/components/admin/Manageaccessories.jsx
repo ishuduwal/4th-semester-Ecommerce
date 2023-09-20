@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { AddAccessories, GetAccessories } from '../../function/Accessories';
+import { AddAccessories, GetAccessories, DeleteAccessories } from '../../function/Accessories';
 export const Manageaccessories = () => {
   const [isAddAccessoriesVisible, setIsAddAccessoriesVisible] = useState(false);
   const [accessories, setAccessories] = useState([]);
@@ -25,7 +25,18 @@ export const Manageaccessories = () => {
     const handleCancelClick = () => {
       setIsAddAccessoriesVisible(false);
     };
-    
+    const handleDeleteAccessories = async (id) => {
+      try {
+          await DeleteAccessories(id)
+          FetchAccessories()
+      } catch(error) {
+          console.error('error:', error);
+          if (error.response) {
+              console.error('Response data:', error.response.data);
+          }
+      }
+  }
+  
     useEffect(() => {
       FetchAccessories();
       function handleClickOutside(event) {
@@ -72,7 +83,7 @@ export const Manageaccessories = () => {
           <td data-label ="Price:">{accessorie.price}</td>
           <td>
             <button>Edit<i class="fa-solid fa-pen-to-square"></i></button>
-            <button>Delete<i class="fa-solid fa-trash"></i></button>
+            <button  onClick={()=>handleDeleteAccessories(accessorie._id)}>Delete<i class="fa-solid fa-trash"></i></button>
           </td>
         </tr>
         )}

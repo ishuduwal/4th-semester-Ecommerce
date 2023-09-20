@@ -16,3 +16,11 @@ export const AddAccessories = async (accessories) => {
         console.log(error);
     }
 }
+export const DeleteAccessories= async (accessorieId) => {
+    try {
+        const { data } = await api.DeleteAccessories(accessorieId);
+        return data;
+    } catch(error) {
+        console.log(error);
+    }
+}

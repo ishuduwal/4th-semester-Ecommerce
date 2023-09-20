@@ -1,5 +1,5 @@
 import Accessories from '../model/Accessories.js';
-
+import mongoose from 'mongoose';
 export const GetAccessories = async (req, res) => {
     try {
         const accessories = await Accessories.find()
@@ -29,7 +29,7 @@ export const AddAccessories = async (req, res) => {
 export const DeleteAccessories = async (req, res) => {
     try {
         const { id } = req.params;
-        if (!id) {
+        if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({message:'Accessorie ID is missing'})
         }
         const accessorie = await Accessories.findOneAndDelete({ _id: id });
