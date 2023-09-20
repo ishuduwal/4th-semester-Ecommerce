@@ -1,4 +1,5 @@
 import Laptop from '../model/Laptop.js';
+import mongoose from 'mongoose';
 
 export const GetLaptop = async (req, res) => {
     try {
@@ -30,7 +31,7 @@ export const AddLaptop = async (req, res) => {
 export const DeleteLaptop = async (req, res) => {
     try {
         const { id } = req.params;
-        if (!id) {
+        if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({ message: 'Laptop ID is missing in the request body' });
         }
         const laptop = await Laptop.findOneAndDelete({ _id: id });

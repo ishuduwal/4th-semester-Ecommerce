@@ -29,7 +29,7 @@ export const AddDesktop = async (req, res) => {
 
 export const DeleteDesktop = async (req, res) => {
     try {
-        const { id } = req.body;
+        const { id } = req.params;
         if (!id) {
             return res.status(400).json({message:'Desktop id is missing'})
         }

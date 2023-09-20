@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.post('/', AddDesktop);
 router.get('/', GetDesktop);
-router.delete('/', DeleteDesktop);
+router.delete('/:id', DeleteDesktop);
 
 export default router;

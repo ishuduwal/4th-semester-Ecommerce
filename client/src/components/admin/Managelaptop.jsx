@@ -1,5 +1,5 @@
 import React,{ useState, useRef, useEffect } from 'react'
-import { AddLaptop, GetLaptop } from '../../function/Laptop';
+import { AddLaptop, GetLaptop, DeleteLaptop } from '../../function/Laptop';
 import './Admin.css'
 export const Managelaptop = () => {
   const [isAddLaptopVisible, setIsAddLaptopVisible] = useState(false);
@@ -28,6 +28,17 @@ export const Managelaptop = () => {
     setIsAddLaptopVisible(false);
   };
 
+  const handleDeleteLaptop = async (id) => {
+    try {
+        await DeleteLaptop(id)
+        FetchLaptop()
+    } catch(error) {
+        console.error('error:', error);
+        if (error.response) {
+            console.error('Response data:', error.response.data);
+        }
+    }
+}
   useEffect(() => {
 
     FetchLaptop();
@@ -79,7 +90,7 @@ export const Managelaptop = () => {
             <td data-label ="Price:">{ laptop.price }</td>
             <td>
               <button>Edit<i class="fa-solid fa-pen-to-square"></i></button>
-              <button>Delete<i class="fa-solid fa-trash"></i></button>
+              <button onClick={()=>handleDeleteLaptop(laptop._id)}>Delete<i class="fa-solid fa-trash"></i></button>
             </td>
           </tr>
           ) 

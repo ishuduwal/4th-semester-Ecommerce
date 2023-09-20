@@ -5,5 +5,5 @@ const router = express.Router();
 
 router.post('/', AddAccessories);
 router.get('/', GetAccessories);
-router.delete('/', DeleteAccessories);
+router.delete('/:id', DeleteAccessories);
 export default router

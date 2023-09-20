@@ -16,6 +16,12 @@ export const AddLaptop = async (laptop) => {
         console.log(error);
     }
 }
-export const DeleteLaptop = async (id) => {
-    
+export const DeleteLaptop = async (laptopId) => {
+    try {
+        const { data } = await api.DeleteLaptop(laptopId);
+        return data;
+    } catch(error) {
+        console.log(error);
+    }
 }
+
