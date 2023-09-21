@@ -4,7 +4,19 @@ export const Manageaccessories = () => {
   const [isAddAccessoriesVisible, setIsAddAccessoriesVisible] = useState(false);
   const [accessories, setAccessories] = useState([]);
   const [accessorie, setAccessorie] = useState("");
-    const addAccessoriesRef = useRef(null);
+  const [editAccessorie, setEditAccessorie] = useState(null);
+  const [accessorieData, setAccessorieData] = useState({
+    title: "",
+    brand: "",
+    length: "",
+    storage: "",
+    width: "",
+    connection: "",
+    weight: "",
+    price:"",  
+  })
+  const editAccessorieRef = useRef(null);
+  const addAccessoriesRef = useRef(null);
   
     const toggleAddAccessories = () => {
       setIsAddAccessoriesVisible(!isAddAccessoriesVisible);
@@ -36,6 +48,30 @@ export const Manageaccessories = () => {
           }
       }
   }
+
+  const handleEditClick = (accessorie) => {
+    setEditAccessorie({ ...accessorie});
+  }
+  const handleCloseEditForm = () => {
+    setEditAccessorie(null);
+  };
+  const handleOutsideClick = (event) => {
+    if (editAccessorie !== null && !editAccessorieRef.current.contains(event.target)) {
+      handleCloseEditForm();
+    }
+  };
+
+useEffect(() => {
+  if (editAccessorie !== null) {
+    document.addEventListener('mousedown', handleOutsideClick);
+  } else {
+    document.removeEventListener('mousedown', handleOutsideClick);
+  }
+  
+  return () => {
+    document.removeEventListener('mousedown', handleOutsideClick);
+  };
+}, [editAccessorie]);
   
     useEffect(() => {
       FetchAccessories();
@@ -82,7 +118,57 @@ export const Manageaccessories = () => {
           <td data-label ="Weight:">{accessorie.weight}</td>
           <td data-label ="Price:">{accessorie.price}</td>
           <td>
-            <button>Edit<i class="fa-solid fa-pen-to-square"></i></button>
+          <button onClick={()=> handleEditClick(accessorie)}>Edit<i class="fa-solid fa-pen-to-square"></i></button>
+              {editAccessorie !== null && editAccessorie._id === accessorie._id &&(
+              <div className='edit-laptop' ref={editAccessorieRef}>
+                <div className='flex flex-col inputBox'>
+                  <input type='text' value={editAccessorie.title} name="title"/>
+                  <label>Title</label>
+                </div>
+                <div className='flex flex-col inputBox'>
+                  <select className='h-12 brand-option' value={editAccessorie.brand} name="brand">
+                     <option selected hidden>Category</option>
+                     <option value="keyboard">Keyboard</option>
+                     <option value="mouse">Mouse</option>
+                     <option value="speaker">Speaker</option>
+                     <option value="storage">Storage</option>
+                     <option value="mousepad">Mousepad</option>
+                     <option value="graphics card">Graphics card</option>
+                     <option value="headphone">Headphone</option>
+                  </select>
+                </div>
+                <div className='flex flex-col inputBox'>
+                  <input type='text' name="cpu" value={editAccessorie.length} />
+                  <label>Length</label>
+                </div>
+                <div className='flex flex-col inputBox'>
+                  <input type='text' name="cpu" value={editAccessorie.storage}/>
+                  <label>Storage</label>
+                </div>
+                <div className='flex flex-col inputBox'>
+                  <input type='text' name="cpu" value={editAccessorie.width}/>
+                  <label>Width</label>
+                </div>
+                <div className='flex flex-col inputBox'>
+                  <input type='text' name="cpu" value={editAccessorie.connection}/>
+                  <label>Connection</label>
+                </div>
+                <div className='flex flex-col inputBox'>
+                  <input type='text' name="cpu" value={editAccessorie.weight}/>
+                  <label>Weight</label>
+                </div>
+                <div className='flex flex-col inputBox'>
+                  <input type='text' name="cpu" value={editAccessorie.price}/>
+                  <label>Price</label>
+                </div>
+                <div className='flex flex-col inputBox'>
+                  <input type='file'/>
+                  <label>Photo</label>
+                </div>
+                 <button className='edit-save bg-green-600'>Save</button>
+                 <button className='edit-cancel bg-red-600' onClick={handleCloseEditForm}>Cancel</button>
+              </div>
+                )}
             <button  onClick={()=>handleDeleteAccessories(accessorie._id)}>Delete<i class="fa-solid fa-trash"></i></button>
           </td>
         </tr>
