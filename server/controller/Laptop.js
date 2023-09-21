@@ -44,3 +44,26 @@ export const DeleteLaptop = async (req, res) => {
         res.status(500).json({ message: 'Error deleting laptop', error: error.message });
     }
 };
+
+export const EditLaptop = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { title, brand, cpu, graphics, ram, storage, weight, display, price } = req.body; 
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ message: 'Laptop ID is missing or invalid' });
+        }
+        const updatedLaptop = await Laptop.findByIdAndUpdate(
+            id,
+            { title, brand, cpu, graphics, ram, storage, weight, display, price },
+            { new: true } 
+        );
+        if (!updatedLaptop) {
+            return res.status(404).json({ message: 'Laptop not found' });
+        }
+        res.status(200).json({ message: 'Laptop updated successfully', laptop: updatedLaptop });
+    } catch (error) {
+        console.error('Error updating laptop:', error);
+        res.status(500).json({ message: 'Error updating laptop', error: error.message });
+    }
+};
+

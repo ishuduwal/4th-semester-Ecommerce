@@ -36,7 +36,6 @@ export const Navbar = () => {
   const handleClick = () => {
     setClicked(!clicked);
   };
-
   const LaptopHandler = (e) =>{
     e.preventDefault();
     navigate('/laptop', { state: e.target.textContent })
@@ -121,7 +120,7 @@ export const Navbar = () => {
               {isSidebar ? <Sidebar isSidebar={isSidebar} setIsSidebar={ setIsSidebar } />: ""}
             </div>
             <div>
-              <i class="fa-solid fa-cart-shopping"></i>
+              <Link to='/cart'><i class="fa-solid fa-cart-shopping"></i></Link>
             </div>
         </div>
     </div> 

@@ -21,10 +21,10 @@
     }
 
 }
-.add-laptop >div{
+.add-laptop >div, .edit-laptop > div{
     width: 90%;
 }
-.add-btn-add, .cancel-btn{
+.add-btn-add, .cancel-btn, .edit-save, .edit-cancel{
     height: 2rem;
     width: 5rem;
     color: #fff;
@@ -40,7 +40,7 @@
     border: 1px solid #000;
     border-radius: 0.3rem;
 }
-.add-laptop{
+.add-laptop, .edit-laptop{
     display: grid;
     grid-template-columns: repeat(2,2fr);
     width: 50%;
@@ -52,8 +52,12 @@
     top: 4rem;
     position: fixed;
 }
+.edit-laptop{
+    top: 4rem;
+    left: 30%;
+}
 @media (max-width:1000px) {
-    .add-laptop{
+    .add-laptop, .edit-laptop{
         grid-template-columns: repeat(1,1fr);
         position: fixed;
     }

@@ -14,6 +14,7 @@ import { Managelaptop } from './components/admin/Managelaptop';
 import { Manageuser } from './components/admin/Manageuser';
 import { Manageaccessories } from './components/admin/Manageaccessories';
 import { Managedesktop } from './components/admin/Managedesktop';
+import { Cart } from './components/navbar/Cart';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
         <Route path='/manageuser' element={<Manageuser/>}/>
         <Route path='/manageaccessories' element={<Manageaccessories/>}/>
         <Route path='/managedesktop' element={<Managedesktop/>}/>
+        <Route path='/cart' element={<Cart/>}/>
      </Routes>
      </div>
       </Router>

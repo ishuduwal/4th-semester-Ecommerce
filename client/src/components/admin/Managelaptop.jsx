@@ -3,9 +3,22 @@ import { AddLaptop, GetLaptop, DeleteLaptop } from '../../function/Laptop';
 import './Admin.css'
 export const Managelaptop = () => {
   const [isAddLaptopVisible, setIsAddLaptopVisible] = useState(false);
+  const [editLaptop, setEditLaptop] = useState(null);
   const [laptops, setLaptops] = useState([]);
   const [laptop, setLaptop] = useState("");
+  const [laptopData, setLaptopData] = useState({
+    title: "",
+    brand: "",
+    cpu: "",
+    graphics: "",
+    ram: "",
+    storage: "",
+    weight: "",
+    display: "",
+    price: "",
+  });
   const addLaptopRef = useRef(null);
+  const editLaptopRef = useRef(null);
 
   const toggleAddLaptop = () => {
     setIsAddLaptopVisible(!isAddLaptopVisible);
@@ -38,7 +51,31 @@ export const Managelaptop = () => {
             console.error('Response data:', error.response.data);
         }
     }
-}
+  }
+  const handleEditClick = (laptop) => {
+    setEditLaptop({ ...laptop});
+  }
+  const handleCloseEditForm = () => {
+    setEditLaptop(null);
+  };
+  const handleOutsideClick = (event) => {
+    if (editLaptop !== null && !editLaptopRef.current.contains(event.target)) {
+      handleCloseEditForm();
+    }
+  };
+
+useEffect(() => {
+  if (editLaptop !== null) {
+    document.addEventListener('mousedown', handleOutsideClick);
+  } else {
+    document.removeEventListener('mousedown', handleOutsideClick);
+  }
+  
+  return () => {
+    document.removeEventListener('mousedown', handleOutsideClick);
+  };
+}, [editLaptop]);
+
   useEffect(() => {
 
     FetchLaptop();
@@ -89,12 +126,65 @@ export const Managelaptop = () => {
             <td data-label ="Display:">{ laptop.display }</td>
             <td data-label ="Price:">{ laptop.price }</td>
             <td>
-              <button>Edit<i class="fa-solid fa-pen-to-square"></i></button>
+              <button onClick={()=> handleEditClick(laptop)}>Edit<i class="fa-solid fa-pen-to-square"></i></button>
+              {editLaptop !== null && editLaptop._id === laptop._id &&(
+              <div className='edit-laptop' ref={editLaptopRef}>
+                <div className='flex flex-col inputBox'>
+                  <input type='text' value={editLaptop.title} name="title"/>
+                  <label>Title</label>
+                </div>
+                <div className='flex flex-col inputBox'>
+                  <select className='h-12 brand-option' value={editLaptop.brand} name="brand">
+                   <option selected hidden>Brand</option>
+                   <option value="hp" >Hp</option>
+                   <option value="dell" >Dell</option>
+                   <option value="acer" >Acer</option>
+                   <option value="asus" >Asus</option>
+                   <option value="apple" >Apple</option>
+                   <option value="lenovo" >Lenovo</option>
+                  </select>
+                </div>
+                <div className='flex flex-col inputBox'>
+                  <input type='text' name="cpu" value={editLaptop.cpu} />
+                  <label>CPU</label>
+                </div>
+                <div className='flex flex-col inputBox'>
+                  <input type='text' name="cpu" value={editLaptop.graphics}/>
+                  <label>Graphics</label>
+                </div>
+                <div className='flex flex-col inputBox'>
+                  <input type='text' name="cpu" value={editLaptop.ram}/>
+                  <label>RAM</label>
+                </div>
+                <div className='flex flex-col inputBox'>
+                  <input type='text' name="cpu" value={editLaptop.storage}/>
+                  <label>Storage</label>
+                </div>
+                <div className='flex flex-col inputBox'>
+                  <input type='text' name="cpu" value={editLaptop.weight}/>
+                  <label>Weight</label>
+                </div>
+                <div className='flex flex-col inputBox'>
+                  <input type='text' name="cpu" value={editLaptop.display}/>
+                  <label>Display</label>
+                </div>
+                <div className='flex flex-col inputBox'>
+                  <input type='text' name="cpu" value={editLaptop.price}/>
+                  <label>Price</label>
+                </div>
+                <div className='flex flex-col inputBox'>
+                  <input type='file'/>
+                  <label>Photo</label>
+                </div>
+                 <button className='edit-save bg-green-600'>Save</button>
+                 <button className='edit-cancel bg-red-600' onClick={handleCloseEditForm}>Cancel</button>
+              </div>
+                )}
               <button onClick={()=>handleDeleteLaptop(laptop._id)}>Delete<i class="fa-solid fa-trash"></i></button>
             </td>
           </tr>
           ) 
-          }
+        }
       </table>
       <div className='add-section'>
       {isAddLaptopVisible && (
