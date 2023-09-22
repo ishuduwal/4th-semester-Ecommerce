@@ -44,3 +44,25 @@ export const DeleteDesktop = async (req, res) => {
         res.status(500).json({message:'Error deleting laptop',error:error.message})
     }
 }
+
+export const EditDesktop = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { title, cpu, graphics, ram, storage, weight, price } = req.body; 
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ message: 'desktop id is missing' });
+        }
+        const updatedDesktop = await Desktop.findByIdAndUpdate(
+            id,
+            { title, cpu, graphics, ram, storage, weight, price },
+            { new: true } 
+        );
+        if (!updatedDesktop) {
+            return res.status(404).json({ message: 'desktop not found' });
+        }
+        res.status(200).json({ message: 'desktop updated sucessfully', desktop: updatedDesktop });
+    } catch (error) {
+        console.error('Error updating desktop:', error);
+        res.status(500).json({ message: 'Error updating desktop', error: error.message });
+    }
+};

@@ -1,11 +1,12 @@
 import React,{ useState, useRef, useEffect } from 'react'
-import { AddDesktop, GetDesktop, DeleteDesktop } from '../../function/Desktop';
+import { AddDesktop, GetDesktop, DeleteDesktop, EditDesktop } from '../../function/Desktop';
 import './Admin.css'
 export const Managedesktop = () => {
   const [isAddDesktopVisible, setIsAddDesktopVisible] = useState(false);
   const [desktops, setDesktops] = useState([]);
   const [desktop, setDesktop] = useState("");
   const [editDesktop, setEditDesktop] = useState(null);
+  const [editedDesktop, setEditedDesktop] = useState(null);
   const addDesktopRef = useRef(null);
   const editDesktopRef = useRef(null);
   const [desktopData, setDesktopData] = useState({
@@ -52,7 +53,9 @@ export const Managedesktop = () => {
     }
   }
   const handleEditClick = (desktop) => {
-    setEditDesktop({ ...desktop });
+    setEditedDesktop({ ...desktop });
+    setDesktopData({ ...desktop })
+    setEditDesktop(desktop);
   }
   const handleCloseEditForm = () => {
     setEditDesktop(null);
@@ -73,6 +76,17 @@ export const Managedesktop = () => {
       document.removeEventListener('mousedown', handleOutsideClick);
     }
   }, [editDesktop]);
+
+  const handleSaveEdit = async (e, desktop) => {
+    e.preventDefault();
+    try {
+      await EditDesktop(desktop)
+      FetchDesktop()
+      setEditDesktop(null);
+    } catch(error) {
+      console.error('error updating:' , error)
+    }
+  }
 
   useEffect(() => {
 
@@ -127,11 +141,11 @@ export const Managedesktop = () => {
               {editDesktop !== null && editDesktop._id === desktop._id &&(
               <div className='edit-laptop' ref={editDesktopRef}>
                 <div className='flex flex-col inputBox'>
-                  <input type='text' value={editDesktop.title} name="title"/>
+                  <input type='text' value={editedDesktop.title} name="title" onChange={(e) => setEditedDesktop({...editedDesktop, title:e.target.value})}/>
                   <label>Title</label>
                 </div>
                 <div className='flex flex-col inputBox'>
-                  <select className='h-12 brand-option' value={editDesktop.brand} name="brand">
+                  <select className='h-12 brand-option' value={editedDesktop.brand} name="brand" onChange={(e) => setEditedDesktop({...editedDesktop, brand:e.target.value})}>
                    <option selected hidden>Brand</option>
                    <option value="hp" >Hp</option>
                    <option value="dell" >Dell</option>
@@ -142,34 +156,34 @@ export const Managedesktop = () => {
                   </select>
                 </div>
                 <div className='flex flex-col inputBox'>
-                  <input type='text' name="cpu" value={editDesktop.cpu} />
+                  <input type='text' name="cpu" value={editedDesktop.cpu} onChange={(e) => setEditedDesktop({...editedDesktop, cpu:e.target.value})}/>
                   <label>CPU</label>
                 </div>
                 <div className='flex flex-col inputBox'>
-                  <input type='text' name="cpu" value={editDesktop.graphics}/>
+                  <input type='text' name="cpu" value={editedDesktop.graphics} onChange={(e) => setEditedDesktop({...editedDesktop, graphics:e.target.value})}/>
                   <label>Graphics</label>
                 </div>
                 <div className='flex flex-col inputBox'>
-                  <input type='text' name="cpu" value={editDesktop.ram}/>
+                  <input type='text' name="cpu" value={editedDesktop.ram} onChange={(e) => setEditedDesktop({...editedDesktop, ram:e.target.value})}/>
                   <label>RAM</label>
                 </div>
                 <div className='flex flex-col inputBox'>
-                  <input type='text' name="cpu" value={editDesktop.storage}/>
+                  <input type='text' name="cpu" value={editedDesktop.storage} onChange={(e) => setEditedDesktop({...editedDesktop, storage:e.target.value})}/>
                   <label>Storage</label>
                 </div>
                 <div className='flex flex-col inputBox'>
-                  <input type='text' name="cpu" value={editDesktop.weight}/>
+                  <input type='text' name="cpu" value={editedDesktop.weight} onChange={(e) => setEditedDesktop({...editedDesktop, weight:e.target.value})}/>
                   <label>Weight</label>
                 </div>
                 <div className='flex flex-col inputBox'>
-                  <input type='text' name="cpu" value={editDesktop.price}/>
+                  <input type='text' name="cpu" value={editedDesktop.price} onChange={(e) => setEditedDesktop({...editedDesktop, price:e.target.value})}/>
                   <label>Price</label>
                 </div>
                 <div className='flex flex-col inputBox'>
                   <input type='file'/>
                   <label>Photo</label>
                 </div>
-                 <button className='edit-save bg-green-600'>Save</button>
+                 <button className='edit-save bg-green-600' onClick={(e)=>handleSaveEdit(e,editedDesktop)}>Save</button>
                  <button className='edit-cancel bg-red-600' onClick={handleCloseEditForm}>Cancel</button>
               </div>
                 )}

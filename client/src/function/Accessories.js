@@ -16,6 +16,15 @@ export const AddAccessories = async (accessories) => {
         console.log(error);
     }
 }
+export const EditAccessories = async (updatedData) => {
+    try {
+        const { data } = await api.EditAccessories(updatedData);
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const DeleteAccessories= async (accessorieId) => {
     try {
         const { data } = await api.DeleteAccessories(accessorieId);

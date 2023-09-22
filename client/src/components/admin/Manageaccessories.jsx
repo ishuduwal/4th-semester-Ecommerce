@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { AddAccessories, GetAccessories, DeleteAccessories } from '../../function/Accessories';
+import { AddAccessories, GetAccessories, DeleteAccessories, EditAccessories } from '../../function/Accessories';
 export const Manageaccessories = () => {
   const [isAddAccessoriesVisible, setIsAddAccessoriesVisible] = useState(false);
   const [accessories, setAccessories] = useState([]);
   const [accessorie, setAccessorie] = useState("");
+  const [editedAccessorie, setEditedAccessorie] = useState(null); 
   const [editAccessorie, setEditAccessorie] = useState(null);
   const [accessorieData, setAccessorieData] = useState({
     title: "",
@@ -50,7 +51,9 @@ export const Manageaccessories = () => {
   }
 
   const handleEditClick = (accessorie) => {
-    setEditAccessorie({ ...accessorie});
+    setEditedAccessorie({ ...accessorie });
+    setAccessorieData({ ...accessorie })
+    setEditAccessorie(accessorie);
   }
   const handleCloseEditForm = () => {
     setEditAccessorie(null);
@@ -72,6 +75,17 @@ useEffect(() => {
     document.removeEventListener('mousedown', handleOutsideClick);
   };
 }, [editAccessorie]);
+  
+  const handleSaveEdit = async (e, accessorie) => {
+    e.preventDefault();
+    try {
+      await EditAccessories(accessorie)
+      FetchAccessories()
+      setEditAccessorie(null);
+    } catch (error) {
+      console.log('error updating:', error)
+    }
+  }
   
     useEffect(() => {
       FetchAccessories();
@@ -122,11 +136,11 @@ useEffect(() => {
               {editAccessorie !== null && editAccessorie._id === accessorie._id &&(
               <div className='edit-laptop' ref={editAccessorieRef}>
                 <div className='flex flex-col inputBox'>
-                  <input type='text' value={editAccessorie.title} name="title"/>
+                  <input type='text' value={editedAccessorie.title} name="title" onChange={(e) => setEditedAccessorie({...editedAccessorie, title:e.target.value})}/>
                   <label>Title</label>
                 </div>
                 <div className='flex flex-col inputBox'>
-                  <select className='h-12 brand-option' value={editAccessorie.brand} name="brand">
+                  <select className='h-12 brand-option' value={editedAccessorie.brand} name="brand" onChange={(e) => setEditedAccessorie({...editedAccessorie, brand:e.target.value})}>
                      <option selected hidden>Category</option>
                      <option value="keyboard">Keyboard</option>
                      <option value="mouse">Mouse</option>
@@ -138,34 +152,34 @@ useEffect(() => {
                   </select>
                 </div>
                 <div className='flex flex-col inputBox'>
-                  <input type='text' name="cpu" value={editAccessorie.length} />
+                  <input type='text' name="length" value={editedAccessorie.length} onChange={(e) => setEditedAccessorie({...editedAccessorie, length:e.target.value})}/>
                   <label>Length</label>
                 </div>
                 <div className='flex flex-col inputBox'>
-                  <input type='text' name="cpu" value={editAccessorie.storage}/>
+                  <input type='text' name="storage" value={editedAccessorie.storage} onChange={(e) => setEditedAccessorie({...editedAccessorie, storage:e.target.value})}/>
                   <label>Storage</label>
                 </div>
                 <div className='flex flex-col inputBox'>
-                  <input type='text' name="cpu" value={editAccessorie.width}/>
+                  <input type='text' name="width" value={editedAccessorie.width} onChange={(e) => setEditedAccessorie({...editedAccessorie, width:e.target.value})}/>
                   <label>Width</label>
                 </div>
                 <div className='flex flex-col inputBox'>
-                  <input type='text' name="cpu" value={editAccessorie.connection}/>
+                  <input type='text' name="connection" value={editedAccessorie.connection} onChange={(e) => setEditedAccessorie({...editedAccessorie, connection:e.target.value})} />
                   <label>Connection</label>
                 </div>
                 <div className='flex flex-col inputBox'>
-                  <input type='text' name="cpu" value={editAccessorie.weight}/>
+                  <input type='text' name="weight" value={editedAccessorie.weight} onChange={(e) => setEditedAccessorie({...editedAccessorie, weight:e.target.value})}/>
                   <label>Weight</label>
                 </div>
                 <div className='flex flex-col inputBox'>
-                  <input type='text' name="cpu" value={editAccessorie.price}/>
+                  <input type='text' name="price" value={editedAccessorie.price} onChange={(e) => setEditedAccessorie({...editedAccessorie, price:e.target.value})}/>
                   <label>Price</label>
                 </div>
                 <div className='flex flex-col inputBox'>
                   <input type='file'/>
                   <label>Photo</label>
                 </div>
-                 <button className='edit-save bg-green-600'>Save</button>
+                 <button className='edit-save bg-green-600' onClick={(e)=>handleSaveEdit(e,editedAccessorie)}>Save</button>
                  <button className='edit-cancel bg-red-600' onClick={handleCloseEditForm}>Cancel</button>
               </div>
                 )}

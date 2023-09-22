@@ -16,6 +16,15 @@ export const AddDesktop = async (desktop) => {
         console.log(error);
     }
 }
+export const EditDesktop = async (updatedData) => {
+    try {
+        const { data } = await api.EditDesktop(updatedData);
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const DeleteDesktop = async (desktopId) => {
     try {
         const { data } = await api.DeleteDesktop(desktopId);

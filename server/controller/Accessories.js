@@ -42,3 +42,25 @@ export const DeleteAccessories = async (req, res) => {
         res.status(500).json({message:'Error deleting accessorie',error:error.message})
     }
 }
+
+export const EditAccessories = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { title, brand, storage, weight, length, connection, price } = req.body; 
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ message: 'acccessorie id missing' });
+        }
+        const updatedAccessories = await Accessories.findByIdAndUpdate(
+            id,
+            { title, brand, storage, weight, length, connection, price  },
+            { new: true } 
+        );
+        if (!updatedAccessories) {
+            return res.status(404).json({ message: 'Accessorie not found' });
+        }
+        res.status(200).json({ message: 'Accessorie updated successfully', accessorie: updatedAccessories });
+    } catch (error) {
+        console.error('Error updating accessorie:', error);
+        res.status(500).json({ message: 'Error updating accessorie', error: error.message });
+    }
+};
