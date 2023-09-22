@@ -1,11 +1,12 @@
 import React,{ useState, useRef, useEffect } from 'react'
-import { AddLaptop, GetLaptop, DeleteLaptop } from '../../function/Laptop';
+import { AddLaptop, GetLaptop, DeleteLaptop, EditLaptop } from '../../function/Laptop';
 import './Admin.css'
 export const Managelaptop = () => {
   const [isAddLaptopVisible, setIsAddLaptopVisible] = useState(false);
   const [editLaptop, setEditLaptop] = useState(null);
   const [laptops, setLaptops] = useState([]);
   const [laptop, setLaptop] = useState("");
+  const [editedLaptop, setEditedLaptop] = useState(null);
   const [laptopData, setLaptopData] = useState({
     title: "",
     brand: "",
@@ -27,14 +28,12 @@ export const Managelaptop = () => {
   const AddLaptopHandler = async (e) => {
     e.preventDefault();
     const res = await AddLaptop(laptop);
-    console.log(laptop);
     FetchLaptop();
     setIsAddLaptopVisible(false);
   }
   const FetchLaptop = async () => {
     const res = await GetLaptop();
     setLaptops(res);
-    console.log(res,"hello")
   }
 
   const handleCancelClick = () => {
@@ -53,7 +52,9 @@ export const Managelaptop = () => {
     }
   }
   const handleEditClick = (laptop) => {
-    setEditLaptop({ ...laptop});
+    setEditedLaptop({ ...laptop });
+    setLaptopData({...laptop})
+    setEditLaptop(laptop);
   }
   const handleCloseEditForm = () => {
     setEditLaptop(null);
@@ -75,7 +76,17 @@ useEffect(() => {
     document.removeEventListener('mousedown', handleOutsideClick);
   };
 }, [editLaptop]);
-
+  
+  const handleSaveEdit = async (e, laptop) => {
+    e.preventDefault();
+    try {
+    await EditLaptop(laptop)
+    FetchLaptop()
+    setEditLaptop(null);
+  } catch (error) {
+    console.error('error updating:', error);
+  }
+  }
   useEffect(() => {
 
     FetchLaptop();
@@ -130,11 +141,11 @@ useEffect(() => {
               {editLaptop !== null && editLaptop._id === laptop._id &&(
               <div className='edit-laptop' ref={editLaptopRef}>
                 <div className='flex flex-col inputBox'>
-                  <input type='text' value={editLaptop.title} name="title"/>
+                  <input type='text' value={editedLaptop.title} name="title" onChange={(e) => setEditedLaptop({...editedLaptop, title:e.target.value})}/>
                   <label>Title</label>
                 </div>
                 <div className='flex flex-col inputBox'>
-                  <select className='h-12 brand-option' value={editLaptop.brand} name="brand">
+                  <select className='h-12 brand-option' value={editedLaptop.brand} name="brand" onSelect={(e) => setEditedLaptop({...editedLaptop, title:e.target.value})}>
                    <option selected hidden>Brand</option>
                    <option value="hp" >Hp</option>
                    <option value="dell" >Dell</option>
@@ -145,38 +156,38 @@ useEffect(() => {
                   </select>
                 </div>
                 <div className='flex flex-col inputBox'>
-                  <input type='text' name="cpu" value={editLaptop.cpu} />
+                  <input type='text' name="cpu" value={editedLaptop.cpu} onChange={(e) => setEditedLaptop({...editedLaptop, cpu:e.target.value})}/>
                   <label>CPU</label>
                 </div>
                 <div className='flex flex-col inputBox'>
-                  <input type='text' name="cpu" value={editLaptop.graphics}/>
+                  <input type='text' name="cpu" value={editedLaptop.graphics} onChange={(e) => setEditedLaptop({...editedLaptop, graphics:e.target.value})}/>
                   <label>Graphics</label>
                 </div>
                 <div className='flex flex-col inputBox'>
-                  <input type='text' name="cpu" value={editLaptop.ram}/>
+                  <input type='text' name="cpu" value={editedLaptop.ram} onChange={(e) => setEditedLaptop({...editedLaptop, ram:e.target.value})}/>
                   <label>RAM</label>
                 </div>
                 <div className='flex flex-col inputBox'>
-                  <input type='text' name="cpu" value={editLaptop.storage}/>
+                  <input type='text' name="cpu" value={editedLaptop.storage} onChange={(e) => setEditedLaptop({...editedLaptop, storage:e.target.value})}/>
                   <label>Storage</label>
                 </div>
                 <div className='flex flex-col inputBox'>
-                  <input type='text' name="cpu" value={editLaptop.weight}/>
+                  <input type='text' name="cpu" value={editedLaptop.weight} onChange={(e) => setEditedLaptop({...editedLaptop, weight:e.target.value})}/>
                   <label>Weight</label>
                 </div>
                 <div className='flex flex-col inputBox'>
-                  <input type='text' name="cpu" value={editLaptop.display}/>
+                  <input type='text' name="cpu" value={editedLaptop.display} onChange={(e) => setEditedLaptop({...editedLaptop, display:e.target.value})}/>
                   <label>Display</label>
                 </div>
                 <div className='flex flex-col inputBox'>
-                  <input type='text' name="cpu" value={editLaptop.price}/>
+                  <input type='text' name="cpu" value={editedLaptop.price} onChange={(e) => setEditedLaptop({...editedLaptop, price:e.target.value})}/>
                   <label>Price</label>
                 </div>
                 <div className='flex flex-col inputBox'>
                   <input type='file'/>
                   <label>Photo</label>
                 </div>
-                 <button className='edit-save bg-green-600'>Save</button>
+                 <button className='edit-save bg-green-600' onClick={(e)=>handleSaveEdit(e,editedLaptop)}>Save</button>
                  <button className='edit-cancel bg-red-600' onClick={handleCloseEditForm}>Cancel</button>
               </div>
                 )}

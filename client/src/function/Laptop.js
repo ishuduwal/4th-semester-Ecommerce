@@ -16,9 +16,9 @@ export const AddLaptop = async (laptop) => {
         console.log(error);
     }
 }
-export const EditLaptop = async (laptopId) => {
+export const EditLaptop = async (updatedData) => {
     try {
-        const { data } = await api.EditLaptop(laptopId);
+        const { data } = await api.EditLaptop(updatedData);
         return data;
     } catch (error) {
         console.log(error);
