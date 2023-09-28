@@ -1,3 +1,4 @@
+import mongoose from 'mongoose'
 import User from '../model/User.js'
 
 export const GetUser = async (req,res)=>{
@@ -6,6 +7,45 @@ export const GetUser = async (req,res)=>{
         res.status(200).json(user)
     } catch (error) {
         res.status(401).json({message:error.message})
+    }
+}
+
+export const DeleteUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ message: 'user id missing' });
+        }
+        const user = await User.findOneAndDelete({ _id: id });
+        if (!user) {
+            return res.status(404).json({ message: 'user not found' });
+        }
+        res.status(200).json({ message: 'user deleted sucessfully' });
+    } catch (error) {
+            console.error('error deleting user:', error);
+            res.status(500).json({ message: 'Error deleting user', error: error.message });
+        }
+}
+
+export const EditUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { name, email, password } = req.body;
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ message: 'User id is missing' });
+        }
+        const updatedUser = await User.findByIdAndUpdate(
+            id,
+            { name, email, password },
+            {new:true}
+        )
+        if (!updatedUser) {
+            return res.status(404).json({message:'user not found'})
+        }
+        res.status(200).json({message:'user updated sucessfully', user: updatedUser})
+    } catch (error) {
+        console.error('Error updating user:', error);
+        res.status(500).json({message:'error updating user', error:error.message})
     }
 }
 

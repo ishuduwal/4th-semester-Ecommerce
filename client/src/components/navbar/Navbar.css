@@ -237,3 +237,8 @@ nav ul{
         gap: 1rem;
     }
 }
+.user-in{
+    position: absolute;
+    top: 2.6rem;
+    right: 3.4rem;
+}
