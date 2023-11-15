@@ -1,6 +1,6 @@
 import React, {useRef, useState} from 'react';
 import { useEffect } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Sidebar } from './Sidebar';
 export const Navbar = () => {
 
@@ -8,7 +8,7 @@ export const Navbar = () => {
   const navigate = useNavigate();
   const [isUser, setIsUser] = useState(null);
   const [isSidebar, setIsSidebar] = useState(false);
-
+  const [user, setUser] = useState("");
   const [laptopMenuOpen, setLaptopMenuOpen] = useState(false);
   const [accessoriesMenuOpen, setAccessoriesMenuOpen] = useState(false);
   const LaptopMenu = ['Hp', 'Dell', 'Acer', 'Asus', 'Apple', 'Lenovo']
@@ -16,22 +16,31 @@ export const Navbar = () => {
   
   const menuRef = useRef();
   const dropdownRef = useRef();
+
+  var location = useLocation();
+  
+  try {
+    setUser(location.state.user.name);
+  } catch (error) {
+    
+  }
+
   useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (
-        menuRef.current && !menuRef.current.contains(e.target) && dropdownRef.current && !dropdownRef.current.contains(e.target)
-      ) {
-        setLaptopMenuOpen(false);
-        setAccessoriesMenuOpen(false);
-      }
-    };
+    setUser(window.localStorage.getItem("user"))
+  },[])
+
+   const handleClickOutside = (e) => {
+    if (
+      menuRef.current && !menuRef.current.contains(e.target) && dropdownRef.current && !dropdownRef.current.contains(e.target)
+    ) {
+      setLaptopMenuOpen(false);
+      setAccessoriesMenuOpen(false);
+    }
+  };
+  document.addEventListener('mousedown', handleClickOutside);
   
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-  
+    document.removeEventListener('mousedown', handleClickOutside);
+ 
 
   const handleClick = () => {
     setClicked(!clicked);
@@ -53,16 +62,7 @@ export const Navbar = () => {
     navigate('/desktop', { state: e.target.textContent })
     setClicked(false)
   }
-  useEffect(() => {
-    const checkUser = () => {
-      var user = window.localStorage.getItem("user");
-      if (user) {
-        setIsUser(user)
-      }
-    }
-
-    checkUser();
-  },[])
+ 
   return (
     <>
     <nav>
@@ -116,12 +116,12 @@ export const Navbar = () => {
         </div>
         <div className='login-signup'>
             <div>
-              {isUser ? (
+              {user ? (
                 <div>
                   <button onClick={() => setIsSidebar(true)}>
                     <i className='large material-icons mb-2'>account_circle</i>
                   </button>
-                  <p className='user-in'>{isUser}</p>
+                  <p className='user-in'>{user}</p>
                   </div>):(
                   <Link to='/login'><i className='fa-solid fa-user'></i></Link>
                   )}

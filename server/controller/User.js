@@ -3,7 +3,8 @@ import User from '../model/User.js'
 
 export const GetUser = async (req,res)=>{
     try {
-        const user = await User.find()
+        var user = await User.find()
+        user = user.filter(u => u.name.toLowerCase() != "admin")
         res.status(200).json(user)
     } catch (error) {
         res.status(401).json({message:error.message})
@@ -59,7 +60,8 @@ export const Signup = async (req,res) =>{
             const newUser = new User({
                 name,
                 email,
-                password
+                password,
+                isAdmin:false
             })
             await newUser.save()
             res.status(201).json({ message: "Sucessfully Registered"})
@@ -75,7 +77,7 @@ export const Login = async (req, res) => {
     try{
         const userDB = await User.findOne({ email: user.email, password: user.password })
         if (!userDB) return res.status(404).json(false);
-        res.status(201).json(userDB.name);
+        res.status(201).json(userDB);
     }catch (error){
         res.status(404).json(false);
     }

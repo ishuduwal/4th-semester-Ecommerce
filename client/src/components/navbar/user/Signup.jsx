@@ -24,8 +24,10 @@ export const Signup = () => {
     e.preventDefault();
     const res =  await Register(user);
     setResponse(res.message);
+    console.log(res)
     if (res.message == "User already Registered" || res.message == "Sucessfully Registered"){
-    navigate('/')
+      window.localStorage.setItem("user",res)
+      navigate('/',{state:{user:res}});
     }
   }
   const [show, setShow]=useState(false)

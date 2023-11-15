@@ -20,10 +20,12 @@ export const Signin = () => {
   const LoginHandler = async (e)=>{
     e.preventDefault();
     const res =  await Login(user);
-    setIsLogin(res);
-    if (res == false) return;
-    window.localStorage.setItem("user",res)
-    navigate('/');
+    setIsLogin(res.name);
+    if (res.name == false) return;
+    window.localStorage.setItem("user", res.name)
+    window.localStorage.setItem("isAdmin",res.isAdmin)
+    navigate('/',{state:{user:res}});
+    
     console.log(res)
   }
 

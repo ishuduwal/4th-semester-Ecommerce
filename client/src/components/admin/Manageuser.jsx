@@ -19,6 +19,7 @@ export const Manageuser = () => {
   const fetchData = async () => {
     try {
       const userData = await GetUser();
+      console.log(userData)
       setUsers(userData);
     } catch (error) {
       console.error('Errorer fetching:', error)
@@ -34,6 +35,7 @@ export const Manageuser = () => {
           <th>S.N.</th>
           <th>Name:</th>
           <th>Email address:</th>
+          <th>isAdmin:</th>
           <th>Password:</th>
           <th className='opt-btn'>Option</th>
         </tr>
@@ -41,7 +43,8 @@ export const Manageuser = () => {
             <tr key={index}>
               <td>{index + 1}</td>
               <td>{user.name }</td>
-              <td>{user.email }</td>
+              <td>{user.email}</td>
+              <td>{user.isAdmin?"True":"False"}</td>
               <td>{ user.password}</td>
               <td>
                 <button>Edit<i class="fa-solid fa-pen-to-square"></i></button>
