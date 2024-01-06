@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { AddAccessories, GetAccessories, DeleteAccessories, EditAccessories } from '../../function/Accessories';
+import { AddAccessories, GetAccessories, DeleteAccessories, EditAccessories, UploadAccessories } from '../../function/Accessories';
 export const Manageaccessories = () => {
   const [isAddAccessoriesVisible, setIsAddAccessoriesVisible] = useState(false);
   const [accessories, setAccessories] = useState([]);
   const [accessorie, setAccessorie] = useState("");
   const [editedAccessorie, setEditedAccessorie] = useState(null); 
   const [editAccessorie, setEditAccessorie] = useState(null);
+  const [file, setFile] = useState(null);
   const [accessorieData, setAccessorieData] = useState({
     title: "",
     brand: "",
@@ -24,8 +25,11 @@ export const Manageaccessories = () => {
     }
     const AddAccessoriesHandler = async (e) => {
       e.preventDefault();
-      const res = await AddAccessories(accessorie);
-      console.log(accessorie);
+      let formData = new FormData();
+      formData.append('accessorie', file)
+      await UploadAccessories(formData);
+      await AddAccessories(accessorie);
+      console.log(accessories);
       FetchAccessories();
       setIsAddAccessoriesVisible(false);
     }
@@ -87,6 +91,12 @@ useEffect(() => {
     }
   }
   
+  const ImageHandler = async (e) => {
+    setFile(e.target.files[0]);
+    setAccessorie({ ...accessorie, image: e.target.files[0].name });
+    console.log(e.target.files[0].name)
+  }
+
     useEffect(() => {
       FetchAccessories();
       function handleClickOutside(event) {
@@ -140,7 +150,7 @@ useEffect(() => {
                   <label>Title</label>
                 </div>
                 <div className='flex flex-col inputBox'>
-                  <select className='h-12 brand-option' value={editedAccessorie.brand} name="brand" onChange={(e) => setEditedAccessorie({...editedAccessorie, brand:e.target.value})}>
+                  <select className='h-12 brand-option' value={editedAccessorie.brand} name="brand" onSelect={(e) => setEditedAccessorie({...editedAccessorie, brand:e.target.value})}>
                      <option selected hidden>Category</option>
                      <option value="keyboard">Keyboard</option>
                      <option value="mouse">Mouse</option>
@@ -196,7 +206,7 @@ useEffect(() => {
               <label>Title</label>
           </div>
           <div className='flex flex-col inputBox'>
-              <select className='h-12 brand-option' onSelect={(e)=>setAccessorie({...accessorie,category:e.target.value})} >
+              <select className='h-12 brand-option' onChange={(e)=>setAccessorie({...accessorie,category:e.target.value})} >
                 <option selected hidden>Category</option>
                 <option value="keyboard">Keyboard</option>
                 <option value="mouse">Mouse</option>
@@ -232,7 +242,7 @@ useEffect(() => {
               <label>Price</label>
           </div>
           <div className='flex flex-col inputBox'>
-              <input type='file'/>
+              <input type='file' onChange={(e)=>ImageHandler(e)}/>
               <label>Photo</label>
         </div>
         <div className='flex justify-between'>

@@ -1,5 +1,5 @@
 import React,{ useState, useRef, useEffect } from 'react'
-import { AddLaptop, GetLaptop, DeleteLaptop, EditLaptop } from '../../function/Laptop';
+import { AddLaptop, GetLaptop, DeleteLaptop, EditLaptop, UploadLaptop } from '../../function/Laptop';
 import './Admin.css'
 export const Managelaptop = () => {
   const [isAddLaptopVisible, setIsAddLaptopVisible] = useState(false);
@@ -7,6 +7,7 @@ export const Managelaptop = () => {
   const [laptops, setLaptops] = useState([]);
   const [laptop, setLaptop] = useState("");
   const [editedLaptop, setEditedLaptop] = useState(null);
+  const [file, setFile] = useState(null);
   const [laptopData, setLaptopData] = useState({
     title: "",
     brand: "",
@@ -27,7 +28,11 @@ export const Managelaptop = () => {
 
   const AddLaptopHandler = async (e) => {
     e.preventDefault();
-    const res = await AddLaptop(laptop);
+    let formData = new FormData();
+    formData.append('laptop',file)
+    await AddLaptop(laptop);
+    await UploadLaptop(formData);
+    console.log(laptop)
     FetchLaptop();
     setIsAddLaptopVisible(false);
   }
@@ -87,6 +92,13 @@ useEffect(() => {
     console.error('error updating:', error);
   }
   }
+
+  const ImageHandler = async (e) => {
+    setFile(e.target.files[0]);
+    setLaptop({ ...laptop, image: e.target.files[0].name });
+    console.log(e.target.files[0].name)
+  }
+
   useEffect(() => {
 
     FetchLaptop();
@@ -146,7 +158,6 @@ useEffect(() => {
                 </div>
                 <div className='flex flex-col inputBox'>
                   <select className='h-12 brand-option' value={editedLaptop.brand} name="brand" onSelect={(e) => setEditedLaptop({...editedLaptop, title:e.target.value})}>
-                   <option selected hidden>Brand</option>
                    <option value="hp" >Hp</option>
                    <option value="dell" >Dell</option>
                    <option value="acer" >Acer</option>
@@ -205,7 +216,7 @@ useEffect(() => {
               <label>Title</label>
           </div>
             <div className='flex flex-col inputBox'>
-              <select className='h-12 brand-option' onSelect={(e)=>setLaptop({...laptop,brand:e.target.value})}>
+              <select className='h-12 brand-option' onChange={(e)=>setLaptop({...laptop,brand:e.target.value})}>
                 <option selected hidden>Brand</option>
                 <option value="hp" >Hp</option>
                 <option value="dell" >Dell</option>
@@ -244,7 +255,7 @@ useEffect(() => {
               <label>Price</label>
           </div>
           <div className='flex flex-col inputBox'>
-              <input type='file'/>
+              <input type='file' onChange={(e)=>ImageHandler(e)} />
               <label>Photo</label>
         </div>
         <div className='flex justify-between'>

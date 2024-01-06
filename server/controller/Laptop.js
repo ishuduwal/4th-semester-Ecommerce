@@ -11,14 +11,14 @@ export const GetLaptop = async (req, res) => {
 }
 
 export const AddLaptop = async (req, res) => {
-    const { title, brand, cpu, graphics, ram, storage, weight, display, price } = req.body
+    const { title, brand, cpu, graphics, ram, storage, weight, display, price, image } = req.body
     try {
         let laptop = await Laptop.findOne({ title: title })
         
         if (laptop) { res.status(200).json({ message: "Laptop already addded" }) }
         else {
             const newLaptop = new Laptop({
-                title, brand, cpu, graphics, ram, storage, weight, display, price
+                title, brand, cpu, graphics, ram, storage, weight, display, price, image
             })
             await newLaptop.save()
             res.status(201).json({message: "Laptop added"})
@@ -48,13 +48,13 @@ export const DeleteLaptop = async (req, res) => {
 export const EditLaptop = async (req, res) => {
     try {
         const { id } = req.params;
-        const { title, brand, cpu, graphics, ram, storage, weight, display, price } = req.body; 
+        const { title, brand, cpu, graphics, ram, storage, weight, display, price, image } = req.body; 
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({ message: 'Laptop ID is missing or invalid' });
         }
         const updatedLaptop = await Laptop.findByIdAndUpdate(
             id,
-            { title, brand, cpu, graphics, ram, storage, weight, display, price },
+            { title, brand, cpu, graphics, ram, storage, weight, display, price, image },
             { new: true } 
         );
         if (!updatedLaptop) {

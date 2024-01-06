@@ -11,14 +11,14 @@ export const GetDesktop = async (req, res) => {
 }
 
 export const AddDesktop = async (req, res) => {
-    const { title, cpu, graphics, ram, storage, weight, price } = req.body
+    const { title, cpu, graphics, ram, storage, weight, price, image, brand } = req.body
     try {
         let desktop = await Desktop.findOne({ title: title })
         
         if (desktop) { res.status(200).json({ message: "Desktop already added" }) }
         else {
             const newDesktop = new Desktop({
-                title, cpu, graphics, ram, storage, weight, price
+                title, cpu, graphics, ram, storage, weight, price, image, brand
             })
             await newDesktop.save()
             res.status(201).json({message:"Desktop added"})
@@ -48,13 +48,13 @@ export const DeleteDesktop = async (req, res) => {
 export const EditDesktop = async (req, res) => {
     try {
         const { id } = req.params;
-        const { title, cpu, graphics, ram, storage, weight, price } = req.body; 
+        const { title, cpu, graphics, ram, storage, weight, price, image, brand } = req.body; 
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({ message: 'desktop id is missing' });
         }
         const updatedDesktop = await Desktop.findByIdAndUpdate(
             id,
-            { title, cpu, graphics, ram, storage, weight, price },
+            { title, cpu, graphics, ram, storage, weight, price, image, brand },
             { new: true } 
         );
         if (!updatedDesktop) {

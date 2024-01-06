@@ -7,7 +7,9 @@
 .imageCarousel{
     height: 100vh;
     width: 100%;
-    margin-top: 2rem;
+    padding-top: 4rem;
+    background-color: var(--main-bg);
+    color: var(--text-color);
 }
 .imageCarousel > div{
     justify-content: center;
@@ -35,7 +37,7 @@
     display: flex;
     justify-content: space-between;
     position: absolute;
-    column-gap: 65vw;
+    gap: 65vw;
 }
 .carousel-button{
     background-color: rgba(247, 246, 245, 0.6);
@@ -47,9 +49,10 @@
     justify-content: center;
     align-items: center;
     border-radius: 0.2rem;
+    color: var(--text-color);
 }
 .carousel-button:hover{
-    background-color: rgba(247, 246, 245, 0.9);
+    background-color: rgba(247, 246, 245, 0.3);
 }
 .fa-arrow-right, .fa-arrow-left{
     font-size: 1.3rem;
@@ -70,16 +73,22 @@
     }
     .imageCarousel > .buttonOverlay{
         align-items: initial;
-        padding-top: 20vw;
     }
     .img-text{
         margin-top: 83vw;
+    }
+    .carousel-button{
+        display: none;
+    }
+    .buttonOverlay{
+        gap: 0;
     }
 }
 @media (max-width:600px) {
     .carousel-button{
         height: 1.5rem;
         width: 1.8rem;
+        display: none;
     }
     .img-text{
         font-size: 1rem;
@@ -91,6 +100,8 @@
     width: 100%;
     display: grid;
     place-items: center;
+    background-color: var(--main-bg);
+    color: var(--text-color);
 }
 .parent{
     height: 80vh;
@@ -174,29 +185,35 @@
 .footer{
     height: 45vh;
     width: 100%;
+    background-color: var(--main-bg);
+    color: var(--text-color);
 }
 .footer-title{
     border-bottom: 3px solid #673de6;
 }
+p{
+    cursor: pointer;
+}
 .footer-email{
-    border: 1px solid #000;
+    border: 1px solid var(--text-color);
     outline: none;
     height: 2.5rem;
     border-bottom-left-radius: 0.3rem;
     border-top-left-radius: 0.3rem;
     padding-left: 0.5rem;
-    color: #000;
+    color: var(--text-color);
     margin-top: 0.1rem;
+    background-color: var(--main-bg);
 }
 .footer-email::placeholder{
-    color: #000;
+    color: var(--text-color);
 }
 .footer-btn{
-    border: 1px solid #000;
+    border: 1px solid var(--text-color);
     height: 2.5rem;
     width: 2.5rem;
     background-color: #673de6;
-    color: #fff;
+    color: var(--text-color);
     border-bottom-right-radius: 0.3rem;
     border-top-right-radius: 0.3rem;
 }
@@ -215,4 +232,40 @@
     .footer-first{
         grid-template-columns: repeat(1,1fr);
     }
+}
+/*dark-mode*/
+.dark-mode{
+    position: fixed;
+    right: 0.5rem;
+    bottom: 1rem;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    border-radius: 50%;
+    padding: 0.5rem;
+}
+@media (max-width:1200px) {
+    .dark-mode{
+        margin-top: 2rem;
+    }
+}
+.fa-sun, .fa-moon{
+    font-size: 1.3rem;
+    color: var(--text-color);
+}
+/*aboutus*/
+.about{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: var(--main-bg);
+    padding-top: 5rem;
+}
+.about-paragraph{
+    max-width: 80rem;
+}
+.about-h{
+    color: var(--signature-color);
+    font-size: 3rem;
 }

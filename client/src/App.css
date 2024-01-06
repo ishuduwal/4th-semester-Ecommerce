@@ -2,7 +2,21 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    color: var(--bg-text);
     font-family: 'Poppins';
 }
-
+.dark-theme{
+    --main-bg: #000000;
+    --text-color: #fff;
+    --signature-color:#673de6;
+    --item-bg: #16181c;
+    --admin-color: #1E1E1E;
+    --navbar-bg:rgba(0,0,0,255,0.1);
+}
+.light-theme{
+    --main-bg: #ffffff;
+    --text-color: #000;
+    --signature-color:#673de6;
+    --item-bg: #e7e7e8;
+    --admin-color: #f6f6f8;
+    --navbar-bg: rgba(247, 246 ,255, 0.5);
+}

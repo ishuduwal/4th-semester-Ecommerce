@@ -16,6 +16,14 @@ export const AddDesktop = async (desktop) => {
         console.log(error);
     }
 }
+export const UploadDesktop = async (desktop) => {
+    try {
+        const { data } = await api.UploadDesktop(desktop);
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
 export const EditDesktop = async (updatedData) => {
     try {
         const { data } = await api.EditDesktop(updatedData);

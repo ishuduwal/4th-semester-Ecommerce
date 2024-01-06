@@ -5,6 +5,8 @@ import './Navbar.css';
 export const Sidebar = ({ isSidebar, setIsSidebar }) => {
   const sidebarRef = useRef(null);
 
+  const [isAdmin, setIsAdmin] = useState(false);
+
   useEffect(() => {
     setIsAdmin(window.localStorage.getItem("isAdmin"));
 },[])
@@ -21,7 +23,7 @@ export const Sidebar = ({ isSidebar, setIsSidebar }) => {
     };
   }, [isSidebar, setIsSidebar]);
 
-  const [isAdmin, setIsAdmin] = useState();
+
 
   const toggleSidebar = () => {
     setIsSidebar(!isSidebar);
@@ -32,6 +34,8 @@ export const Sidebar = ({ isSidebar, setIsSidebar }) => {
   const LogoutHandler=() => {
     window.localStorage.removeItem("user");
     window.localStorage.removeItem("isAdmin")
+    window.localStorage.removeItem("userInfo");
+    window.localStorage.removeItem("items")
     navigate('/');
     window.location.reload();
   }
@@ -43,7 +47,7 @@ export const Sidebar = ({ isSidebar, setIsSidebar }) => {
       
       <div className='sidebar-content'>
       {
-          isAdmin ?
+          isAdmin == "true" ?
             <>
               <Link to="/managelaptop" onClick={() => setIsSidebar(false)}>
           <button className='manage-item'>Laptop</button>
@@ -57,11 +61,16 @@ export const Sidebar = ({ isSidebar, setIsSidebar }) => {
         <Link to="/manageuser" onClick={() => setIsSidebar(false)}>
           <button className='manage-item'>User</button>
         </Link>
+        <Link to='/order' onClick={()=> setIsSidebar(false)}>
+          <button className='manage-item'>Order</button>
+        </Link>
             </>
             :
             ""
       }
-        
+        <Link to="/profile" onClick={() => setIsSidebar(false)}>
+          <button className='manage-item'>Profile</button>
+        </Link>
         <button className='logout' onClick={()=>LogoutHandler()}>Logout</button>
       </div>
     </div>

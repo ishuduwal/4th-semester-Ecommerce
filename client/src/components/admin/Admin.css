@@ -1,10 +1,10 @@
 .product{
     height: 100vh;
     width: 100%;
-    background-color:rgba(247, 246 ,255, 0.5);
+    background-color: var(--main-bg);
     backdrop-filter: blur(10px);
-    color: #000;
-    margin-top: 4rem;
+    color: var(--text-color);
+    padding-top: 4rem;
 }
 .admin-laptop{
     width: 100%;
@@ -27,7 +27,7 @@
 .add-btn-add, .cancel-btn, .edit-save, .edit-cancel{
     height: 2rem;
     width: 5rem;
-    color: #fff;
+    color: var(--text-color);
 }
 .add-section{
     height: 80vh;
@@ -37,15 +37,17 @@
     justify-content: center;
 }
 .brand-option{
-    border: 1px solid #000;
+    border: 1px solid var(--text-color);
     border-radius: 0.3rem;
+    background-color: var(--admin-color);
+    outline: none;
 }
 .add-laptop, .edit-laptop{
     display: grid;
     grid-template-columns: repeat(2,2fr);
     width: 50%;
     height: auto;
-    background-color: #eeeeee;
+    background-color: var(--admin-color);
     padding: 1rem;
     place-items: center;
     gap: 1rem;
@@ -63,18 +65,18 @@
     }
 }
 table > tr > th, table > tr > td{
-    border: 1px solid #ddd;
+    border: 1px solid var(--text-color);
 }
 th{
-    background-color: #d4d4d4;
+    background-color: var(--admin-color);
     height: 3rem;
 }
 tr:nth-child(even){
-    background-color: #ededed;
+    background-color: var(--admin-color);
     height: 2.5rem;
 }
 tr:nth-child(odd){
-    background-color: #dfe1e7;
+    background-color: var(--admin-color);
     height: 2.5rem;
 }
 @media (max-width:1200px) {
@@ -99,3 +101,46 @@ tr:nth-child(odd){
         text-align: left;
     }
 }
+/*edit-user*/
+.edit-user{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--main-bg);
+}
+.profile-edit{
+    background-color: var(--admin-color);
+    height: 19rem;
+    width: auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-color);
+}
+.profile-edit >div{
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-edit >div> .edit-input {
+    height: 2rem;
+    outline: none;
+    border: 1px solid var(--text-color);
+    padding-left: 0.5rem;
+    color: #000;
+}
+.user-edit-save{
+    height: 2rem;
+    width: 8rem;
+    background-color: green;
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+}
+/*order*/

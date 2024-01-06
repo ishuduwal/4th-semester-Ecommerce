@@ -9,6 +9,15 @@ export const GetUser = async () => {
     }
 }
 
+export const EditUser = async (updatedData) => {
+    try {
+        const { data } = await api.EditUser(updatedData);
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const DeleteUser = async (userId) => {
     try {
         const { data } = await api.DeleteUser(userId);

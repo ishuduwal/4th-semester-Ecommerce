@@ -1,15 +1,36 @@
 .signin{
     height: 100vh;
     width: 100%;
+    background-color: var(--main-bg);
 }
 form{
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     height: 30rem;
     width: 25rem;
     border-radius: 0.5rem;
-    background-color: #fff;
+    background-color: var(--item-bg);
     display: grid;
     padding: 1.5rem;
+    color: var(--text-color);
+    .inputBox{
+        .error{
+                color: red;
+                font-size: 14px;
+                margin-top: 5px;
+        }
+        .error-password{
+            position: absolute;
+            color: red;
+            font-size: 14px;
+            margin-top: 3.1rem;
+        }
+        .error-login{
+            position: absolute;
+            color: red;
+            font-size: 14px;
+            margin-top: 4rem;
+        }
+    }
 }
 #eyeball{
     height: 3rem;
@@ -19,9 +40,9 @@ form{
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     width: 2rem;
-    border-right: 1px solid #000;
-    border-top: 1px solid #000;
-    border-bottom: 1px solid #000;
+    border-right: 1px solid var(--text-color);
+    border-top: 1px solid var(--text-color);
+    border-bottom: 1px solid var(--text-color);
 }
 .inputBox{
     position: relative;
@@ -40,11 +61,11 @@ form{
 .inputBox input{
     width: 100%;
     padding: 10px;
-    border: 1px solid #000;
+    border: 1px solid var(--text-color);
     border-radius: 5px;
     background: transparent;
     outline: none;
-    color: #000;
+    color: var(--text-color);
     font-size: 1rem;
 }
 .inputBox label{
@@ -53,7 +74,7 @@ form{
     padding: 10px;
     pointer-events: none;
     font-size: 1rem;
-    color: #000;
+    color: var(--text-color);
     transition: 0.5s;
 }
 .inputBox input:valid ~ label,
@@ -62,7 +83,7 @@ form{
     transform: translateX(10px) translateY(-7px);
     font-size: 0.9rem;
     padding: 0 10px;
-    background: #fff;
+    backdrop-filter: blur(5px);
 }
 .inputBox:valid,
 .inputBox input:focus{

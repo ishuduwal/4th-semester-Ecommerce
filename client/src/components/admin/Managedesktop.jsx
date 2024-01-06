@@ -1,5 +1,5 @@
 import React,{ useState, useRef, useEffect } from 'react'
-import { AddDesktop, GetDesktop, DeleteDesktop, EditDesktop } from '../../function/Desktop';
+import { AddDesktop, GetDesktop, DeleteDesktop, EditDesktop, UploadDesktop } from '../../function/Desktop';
 import './Admin.css'
 export const Managedesktop = () => {
   const [isAddDesktopVisible, setIsAddDesktopVisible] = useState(false);
@@ -7,6 +7,7 @@ export const Managedesktop = () => {
   const [desktop, setDesktop] = useState("");
   const [editDesktop, setEditDesktop] = useState(null);
   const [editedDesktop, setEditedDesktop] = useState(null);
+  const [file, setFile] = useState(null);
   const addDesktopRef = useRef(null);
   const editDesktopRef = useRef(null);
   const [desktopData, setDesktopData] = useState({
@@ -26,7 +27,10 @@ export const Managedesktop = () => {
 
   const AddDesktopHandler = async (e) => {
     e.preventDefault();
-    const res = await AddDesktop(desktop);
+    let formData = new FormData();
+    formData.append('desktop', file)
+    await UploadDesktop(formData);
+    await AddDesktop(desktop);
     console.log(desktop);
     FetchDesktop();
     setIsAddDesktopVisible(false);
@@ -88,6 +92,12 @@ export const Managedesktop = () => {
     }
   }
 
+  const ImageHandler = async (e) => {
+    setFile(e.target.files[0]);
+    setDesktop({ ...desktop, image: e.target.files[0].name });
+    console.log(e.target.files[0].name)
+  }
+
   useEffect(() => {
 
     FetchDesktop();
@@ -145,15 +155,8 @@ export const Managedesktop = () => {
                   <label>Title</label>
                 </div>
                 <div className='flex flex-col inputBox'>
-                  <select className='h-12 brand-option' value={editedDesktop.brand} name="brand" onChange={(e) => setEditedDesktop({...editedDesktop, brand:e.target.value})}>
-                   <option selected hidden>Brand</option>
-                   <option value="hp" >Hp</option>
-                   <option value="dell" >Dell</option>
-                   <option value="acer" >Acer</option>
-                   <option value="asus" >Asus</option>
-                   <option value="apple" >Apple</option>
-                   <option value="lenovo" >Lenovo</option>
-                  </select>
+                      <input type='text' value={editedDesktop.brand} name="brand" onChange={(e) => setEditedDesktop({ ...editedDesktop, brand: e.target.value })} />
+                      <label>Brand</label>
                 </div>
                 <div className='flex flex-col inputBox'>
                   <input type='text' name="cpu" value={editedDesktop.cpu} onChange={(e) => setEditedDesktop({...editedDesktop, cpu:e.target.value})}/>
@@ -201,15 +204,8 @@ export const Managedesktop = () => {
               <label>Title</label>
           </div>
             <div className='flex flex-col inputBox'>
-              <select className='h-12 brand-option' onSelect={(e)=>setDesktop({...desktop,brand:e.target.value})}>
-                <option selected hidden>Brand</option>
-                <option value="hp" >Hp</option>
-                <option value="dell" >Dell</option>
-                <option value="acer" >Acer</option>
-                <option value="asus" >Asus</option>
-                <option value="apple" >Apple</option>
-                <option value="lenovo" >Lenovo</option>
-              </select>
+                <input type='text' onSelect={(e) => setDesktop({ ...desktop, brand: e.target.value })} />
+                <label>Brand</label>
           </div>
           <div className='flex flex-col inputBox'>
               <input type='text' name="name" onChange={(e)=>setDesktop({...desktop,cpu:e.target.value})}/>
@@ -236,9 +232,9 @@ export const Managedesktop = () => {
               <label>Price</label>
           </div>
           <div className='flex flex-col inputBox'>
-              <input type='file'/>
+              <input type='file' onChange={(e)=>ImageHandler(e)}/>
               <label>Photo</label>
-        </div>
+          </div>
         <div className='flex justify-between'>
           <button className='add-btn-add bg-green-600' onClick={(e)=>AddDesktopHandler(e)} >Add</button>
           <button className='cancel-btn bg-red-600' onClick={handleCancelClick}>Cancel</button>

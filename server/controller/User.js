@@ -64,7 +64,7 @@ export const Signup = async (req,res) =>{
                 isAdmin:false
             })
             await newUser.save()
-            res.status(201).json({ message: "Sucessfully Registered"})
+            res.status(201).json({message:"Successfully Registered",user:newUser})
         }
            
     } catch (error) {

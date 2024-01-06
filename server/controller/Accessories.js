@@ -10,13 +10,13 @@ export const GetAccessories = async (req, res) => {
 }
 
 export const AddAccessories = async (req, res) => {
-    const { title, category, weight, length, connection, price } = req.body
+    const { title, category, weight, length, connection, price, image, width } = req.body
     try {
         let accessories = await Accessories.findOne({ title: title })
         if (accessories) { res.status(200).json({ message: "Accessories already added" }) }
         else {
             const newAccessories = new Accessories({
-                title, category, weight, length, connection, price
+                title, category, weight, length, connection, price, image, width
             })
             await newAccessories.save()
             res.status(201).json({message:"Accessories added"})
@@ -46,13 +46,13 @@ export const DeleteAccessories = async (req, res) => {
 export const EditAccessories = async (req, res) => {
     try {
         const { id } = req.params;
-        const { title, brand, storage, weight, length, connection, price } = req.body; 
+        const { title, brand, storage, weight, length, connection, price, image,width } = req.body; 
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({ message: 'acccessorie id missing' });
         }
         const updatedAccessories = await Accessories.findByIdAndUpdate(
             id,
-            { title, brand, storage, weight, length, connection, price  },
+            { title, brand, storage, weight, length, connection, price, image, width  },
             { new: true } 
         );
         if (!updatedAccessories) {

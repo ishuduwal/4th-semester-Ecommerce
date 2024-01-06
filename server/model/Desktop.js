@@ -28,6 +28,14 @@ const DesktopSchema = new mongoose.Schema({
     cpu: {
         type: String,
         require: true
+    },
+    image: {
+        type: String,
+        require: true
+    },
+    brand: {
+        type: String,
+        require: true
     }
 })
 const Desktop = new mongoose.model("Desktop", DesktopSchema);

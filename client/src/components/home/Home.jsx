@@ -3,10 +3,10 @@ import './Home.css'
 import { Carousel } from './Carousel';
 import { Featured } from './Featured';
 import { Footer } from './Footer';
-export const Home = () => {
-  return (
+export const Home = ({isDarkTheme,setIsDarkTheme }) => {
+return (
     <>
-      <Carousel />
+    <Carousel setIsDarkTheme={setIsDarkTheme} isDarkTheme={isDarkTheme} />
       <Featured />
       <Footer />
     </>

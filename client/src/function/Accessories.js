@@ -16,6 +16,14 @@ export const AddAccessories = async (accessories) => {
         console.log(error);
     }
 }
+export const UploadAccessories = async (accessories) => {
+    try {
+        const { data } = await api.UploadAccessories(accessories);
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
 export const EditAccessories = async (updatedData) => {
     try {
         const { data } = await api.EditAccessories(updatedData);

@@ -5,8 +5,14 @@ import img3 from '../../assets/img/carousel/img3.jpg';
 import img2 from '../../assets/img/carousel/img2.jpg';
 import img5 from '../../assets/img/carousel/img5.jpg';
 
-export const Carousel = () => {
+export const Carousel = ({isDarkTheme,setIsDarkTheme}) => {
   const [currentImage, setCurrentImage] = useState(0);
+  
+ 
+  const toggleisDarkTheme = () => {
+    setIsDarkTheme(!isDarkTheme)
+    window.localStorage.setItem('isDarkTheme',`${!isDarkTheme}`)
+  }
   const images = [
     {
       image: img1,
@@ -45,9 +51,11 @@ export const Carousel = () => {
   const previousImage = () => {
     setCurrentImage((currentImage - 1 + images.length) % images.length);
   };
-
   return (
     <>
+      <div onClick={() => toggleisDarkTheme()} className='dark-mode'>
+        {isDarkTheme === 'dark-isDarkTheme'?(<i class="fa-solid fa-sun"></i>):(<i className="fa-solid fa-moon"></i>)}
+      </div>
       <div className="imageCarousel flex justify-center items-center">
         <div className="textOverlay">
           <h2 className="text-2xl font-bold img-text">{images[currentImage].title}</h2>
@@ -60,7 +68,7 @@ export const Carousel = () => {
            <button onClick={nextImage} className="carousel-button next"><i className="fa-solid fa-arrow-right"></i></button>  
           </div>
         </div>
-        <img src={images[currentImage].image} alt="image-carousel"className={`img-slide ${currentImage !== 0 ? 'fade-in' : ''}`}/>
+        <img src={images[currentImage].image} alt="image-carousel" className={`img-slide ${currentImage !== 0 ? 'fade-in' : ''}`} />
       </div>
     </>
   );

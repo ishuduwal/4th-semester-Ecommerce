@@ -2,34 +2,52 @@ import React, {useRef, useState} from 'react';
 import { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Sidebar } from './Sidebar';
-export const Navbar = () => {
+export const Navbar = ({ user, setUser }) => {
 
   const [clicked, setClicked] = useState(false);
   const navigate = useNavigate();
   const [isUser, setIsUser] = useState(null);
   const [isSidebar, setIsSidebar] = useState(false);
-  const [user, setUser] = useState("");
   const [laptopMenuOpen, setLaptopMenuOpen] = useState(false);
   const [accessoriesMenuOpen, setAccessoriesMenuOpen] = useState(false);
   const LaptopMenu = ['Hp', 'Dell', 'Acer', 'Asus', 'Apple', 'Lenovo']
-  const AccessoriesMenu =['Keyboard','Mouse','Speaker','Storage','Mousepad','Graphics card','Headphone']
-  
+  const AccessoriesMenu = ['Keyboard', 'Mouse', 'Speaker', 'Storage', 'Mousepad', 'Graphics card', 'Headphone']
+  const [searchQuery, setSearchQuery] = useState('');
+  const goto = useNavigate();
+
+  const handleSearchInputChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    // Perform the search only if the searchQuery is not empty
+    if (searchQuery.trim() !== '') {
+      goto('/searchresult', { state: { query: searchQuery } });
+    }
+  };
+
   const menuRef = useRef();
   const dropdownRef = useRef();
 
   var location = useLocation();
   
-  try {
-    setUser(location.state.user.name);
-  } catch (error) {
-    
-  }
+  
 
   useEffect(() => {
-    setUser(window.localStorage.getItem("user"))
-  },[])
+    const checkUser = () => {
+      try {
+        setUser(location.state.user);
+      } catch (error) {
+        setUser(window.localStorage.getItem("user"));
+      };
+    }
+    
+    checkUser();
+  }, [])
 
-   const handleClickOutside = (e) => {
+  useEffect(()=>{
+  const handleClickOutside = (e) => {
     if (
       menuRef.current && !menuRef.current.contains(e.target) && dropdownRef.current && !dropdownRef.current.contains(e.target)
     ) {
@@ -38,8 +56,10 @@ export const Navbar = () => {
     }
   };
   document.addEventListener('mousedown', handleClickOutside);
-  
+  return () => {
     document.removeEventListener('mousedown', handleClickOutside);
+  };
+}, []);
  
 
   const handleClick = () => {
@@ -62,7 +82,8 @@ export const Navbar = () => {
     navigate('/desktop', { state: e.target.textContent })
     setClicked(false)
   }
- 
+  
+  
   return (
     <>
     <nav>
@@ -111,9 +132,11 @@ export const Navbar = () => {
     </div>
     <div className='search-section'>
         <div className='srch'>
-            <input type='text' placeholder='Enter keywords to search...' id='search' />
-          <i className='fa fa-search'></i>
-        </div>
+              <input type='text' placeholder='Enter keywords to search...' id='search' value={searchQuery} onChange={handleSearchInputChange}/>
+              <button type='button' onClick={handleSearchSubmit}>
+                <i className='fa fa-search'></i>
+              </button>
+          </div>
         <div className='login-signup'>
             <div>
               {user ? (

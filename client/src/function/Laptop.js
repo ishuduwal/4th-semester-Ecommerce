@@ -16,6 +16,15 @@ export const AddLaptop = async (laptop) => {
         console.log(error);
     }
 }
+
+export const UploadLaptop = async (laptop) => {
+    try {
+        const { data } = await api.UploadLaptop(laptop);
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
 export const EditLaptop = async (updatedData) => {
     try {
         const { data } = await api.EditLaptop(updatedData);

@@ -9,6 +9,10 @@ const AccessoriesSchema = new mongoose.Schema({
         type: String,
         require:true
     },
+    width: {
+        type: String,
+        require:true
+    },
     weight: {
         type: String,
         require: true
@@ -23,6 +27,10 @@ const AccessoriesSchema = new mongoose.Schema({
     },
     price: {
         type: Number,
+        require: true
+    },
+    image: {
+        type: String,
         require: true
     }
 })
