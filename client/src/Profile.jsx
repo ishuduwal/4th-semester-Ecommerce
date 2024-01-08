@@ -55,9 +55,6 @@ export const Profile = () => {
             <label>Password</label>
             <input type='text' name="password" className='edit-input' value={editedUser?.password || user.password} onChange={handleInputChange}/>
           </div>
-          <div>
-            <button className='user-edit-save' onClick={handleSaveEdit}>Save</button>
-          </div>
         </div>
       </div>
     </>

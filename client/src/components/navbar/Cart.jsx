@@ -4,6 +4,9 @@ import { AddCart, DeleteCart, GetCart } from '../../function/Cart';
 export const Cart = () => {
     const [items, setItems] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
+    const [showBill, setShowBill] = useState(false);
+    const [addedItemsInfo, setAddedItemsInfo] = useState(null);
+    
 
     const updateTotalPrice = (cartItems) => {
         let total = 0;
@@ -14,39 +17,37 @@ export const Cart = () => {
     };
     const generateBill = () => {
         const user = JSON.parse(window.localStorage.getItem("userInfo"));
+        const currentDate = new Date().toLocaleDateString();
 
-        const billContent = `
-            User: ${user.name}
-            Email: ${user.email}
-            
-            Items Bought:
-            ${items.map(item => `
-                - ${item.title} ${item.cpu} / ${item.ram} RAM / ${item.storage} SSD / ${item.display} FHD Display
-                  Quantity: ${item.quantity}
-                  Total Amount: NPR.${item.price * item.quantity}
-            `).join('\n')}
-
-            Total Amount: NPR.${totalPrice}
-        `;
-
-        return billContent;
+        const billData = {
+            userEmail: user.email,
+            userName: user.name,
+            items: items.map(item => ({
+                itemId: item._id,
+                title: item.title,
+                image: item.image,
+                price: item.price,
+                quantity: item.quantity,
+                totalPrice: item.price * item.quantity,
+                dateAdded: currentDate,
+            })),
+            totalAmount: totalPrice,
+        };
+        console.log("Generated Bill Data:", billData); 
+        if (billData.userEmail && billData.userName && billData.items.length > 0) {
+            setAddedItemsInfo(billData);
+        } else {
+            console.error("Failed to add items to cart or invalid response");
+        }
     };
-    const downloadBill = () => {
-        const billContent = generateBill();
-        const blob = new Blob([billContent], { type: 'text/html' });
-
-        // Create an anchor tag
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = 'bill.txt';
-
-        // Append the anchor to the body and click it
-        document.body.appendChild(a);
-        a.click();
-
-        // Remove the anchor from the body
-        document.body.removeChild(a);
+    const handleGenerateBill = () => {
+        generateBill();
+        setShowBill(true);
     };
+    const handleCloseBill = () => {
+        setShowBill(false);
+    };
+
     const AddCartHandler = async (e) => {
         e.preventDefault();
         const user = JSON.parse(window.localStorage.getItem("userInfo"));
@@ -57,15 +58,16 @@ export const Cart = () => {
         };
         try {
             const res = await AddCart(cartItems);
-            console.log("AddCart Response:", res);
+            console.log("AddCart response:", res);
             if (res && res.success) {
                 window.localStorage.setItem("items", JSON.stringify(res.items));
-                setItems(res.items);
-                console.log("Items after adding to cart:", res.items);
-            console.log("Total Price:", totalPrice);
-                downloadBill();
+                setItems(res.items, () => {
+                    console.log("Items added successfully");
+                    generateBill();    
+                });
+                
             } else {
-                console.error("Failed to add items to cart. response:", res);
+                console.error("Failed to add items to cart");
             }
         } catch (error) {
             console.error("Error adding items to cart:", error);
@@ -122,7 +124,11 @@ export const Cart = () => {
             FetchCart();
         }
     }, []);
-
+    useEffect(() => {
+        if (items.length > 0) {
+            generateBill();
+        }
+    }, [items]);
     const RemoveItems = async (e, id) => {
         e.preventDefault();
         const filteredItems = items.filter(item => item._id !== id);
@@ -145,6 +151,7 @@ export const Cart = () => {
     return (
         <>
             <div className='cart'>
+                <p>Click on Proceed to order and screenshot the bill</p>
                 <div className='added-cart-item flex justify-center items-center m-8 flex-col p-4'>
                     {items.length === 0 ? "Empty List" : (
                         items.map(item => (
@@ -171,8 +178,54 @@ export const Cart = () => {
                     </div>
                     <div className='flex justify-center items-center'>
                         <button className='proceed' onClick={(e) => AddCartHandler(e)}>Proceed</button>
+                        <button className='generate-bill' onClick={handleGenerateBill}>Generate Bill</button>
                     </div>
                 </div>
+                {showBill && addedItemsInfo && (
+                <div className="bill-container">
+                    <div className="bill-header">
+                            <h2>Bill Details</h2>
+                            <button className="close-bill" onClick={handleCloseBill}>
+                                X
+                            </button>
+                        </div>
+                        <div className="user-info">
+                            <p>User Email: {addedItemsInfo.userEmail}</p>
+                            <p>User Name: {addedItemsInfo.userName}</p>
+                        </div>
+                        <div className="added-items">
+                            {addedItemsInfo.items.map((item, index) => (
+                               <div key={index} className="item-details">
+                               <table>
+                                 <thead>
+                                   <tr>
+                                    <th>S.N</th>
+                                     <th>Title</th>
+                                     <th>Quantity</th>
+                                     <th>Total Price</th>
+                                   </tr>
+                                 </thead>
+                                 <tbody>
+                                   <tr>
+                                    <td data-label ="S.N:">{index+1}</td>
+                                     <td data-label ="Title:">{item.title}</td>
+                                     <td data-label ="Quantity:">{item.quantity}</td>
+                                     <td data-label ="Total Price:">{item.totalPrice}</td>
+                                   </tr>
+                                 </tbody>
+                               </table>
+                             </div>
+                             
+                            ))}
+                        </div>
+                        <div className="bill-summary">
+                            <p>Total Amount: {addedItemsInfo.totalAmount}</p>
+                            <p>Cash on delivery</p>
+                            <p>We will contact you soon!</p>
+                            <p>Hope you enjoyed the shopping</p>
+                        </div>
+                </div>
+            )}
             </div>
         </>
     );

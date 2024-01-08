@@ -7,6 +7,7 @@
     place-items: center;
     row-gap: 1.5rem;
     background-color: var(--main-bg);
+    margin-top: 4rem;
 }
 .laptop-item{
     height: auto;

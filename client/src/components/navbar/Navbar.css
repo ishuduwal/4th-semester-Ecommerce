@@ -267,6 +267,56 @@ nav ul{
 .cart-content{
     margin-bottom: 1rem;
 }
+.generate-bill{
+    margin-left: 1rem;
+}
+.bill-container{
+    background-color:#efefef;
+    color: #000;
+    height: auto;
+    width: auto;
+    padding: 1rem;
+    position: absolute;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    z-index: 99999;
+}
+.close-bill{
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    font-size: 1.3rem;
+}
+.bill-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.bill-header h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.bill-summary p {
+   margin: 10px 0;
+}
+ .added-items >  .item-details > table{
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+ }
+ .added-items >  .item-details > table >tr>th,  .added-items >  .item-details > table> tr >td{
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+ }
+ .added-items >  .item-details > table >tr >th{
+    background-color: #f2f2f2;
+ }
+ .added-items >  .item-details > table >tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
 @media (max-width:1200px) {
     .cart{
         margin-top: 7rem;

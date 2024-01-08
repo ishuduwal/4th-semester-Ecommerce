@@ -20,6 +20,7 @@ export const GetAllCart = async () => {
 
 export const AddCart = async (cart) => {
     try {
+        console.log("AddCart Request Data:", cart);
         const { data } = await api.AddCart(cart);
         return data;
     } catch (error) {

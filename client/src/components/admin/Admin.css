@@ -133,14 +133,4 @@ tr:nth-child(odd){
     padding-left: 0.5rem;
     color: #000;
 }
-.user-edit-save{
-    height: 2rem;
-    width: 8rem;
-    background-color: green;
-    color: var(--text-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 2rem;
-}
 /*order*/
