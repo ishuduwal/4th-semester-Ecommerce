@@ -190,3 +190,15 @@
         gap: 1rem;
     }
 }
+.pagination{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 1rem;
+}
+.pagination > button{
+    height: 2rem;
+    background-color: rgb(129, 123, 123);
+    width: 2rem;
+    cursor: pointer;
+}
