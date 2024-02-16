@@ -47,7 +47,7 @@ export const Laptop = () => {
     ))}
     <div className="pagination">
         {Array.from({ length: totalPages }, (_, i) => (
-            <button key={i} onClick={() => paginate(i + 1)}>
+          <button key={i} onClick={() => paginate(i + 1)} className={currentPage === i + 1 ? 'active' : ''}>
                 {i + 1}
             </button>
         ))}
