@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { AddCart, DeleteCart, GetCart } from '../../function/Cart';
+import { AddPayment, VerfiyPayment } from '../../function/Payment';
+import { useParams } from 'react-router-dom';
 
 export const Cart = () => {
     const [items, setItems] = useState([]);
@@ -7,6 +9,7 @@ export const Cart = () => {
     const [showBill, setShowBill] = useState(false);
     const [addedItemsInfo, setAddedItemsInfo] = useState(null);
     
+    const params = useParams();
 
     const updateTotalPrice = (cartItems) => {
         let total = 0;
@@ -48,7 +51,7 @@ export const Cart = () => {
         setShowBill(false);
     };
 
-    const AddCartHandler = async (e) => {
+    const PaymentHandler = async (e) => {
         e.preventDefault();
         const user = JSON.parse(window.localStorage.getItem("userInfo"));
         const cartItems = {
@@ -69,34 +72,37 @@ export const Cart = () => {
             } else {
                 console.error("Failed to add items to cart");
             }
+            const res2 = await VerfiyPayment(cartItems)
+            window.localStorage.setItem("PaidItems",JSON.stringify(cartItems))
+            window.location.replace(res2.url)
+            
         } catch (error) {
             console.error("Error adding items to cart:", error);
         }
     };
-
+    
     const FetchCart = async () => {
         try {
             const user = JSON.parse(window.localStorage.getItem("userInfo"));
             console.log("User:", user);
-    
+            
             if (!user) {
+                window.localStorage.removeItem("items");
                 console.error("User not logged in");
                 return;
             }
-    
+            
             const email = { email: user.email };
-            console.log("Email:", email);
-    
+            
             const cart = await GetCart(email);
-            console.log("Cart:", cart);
-    
+            
             if (cart && cart.length > 0) {
                 // Ensure that cart is an array and has items
                 const cartItemsArray = cart;
                 setItems(cartItemsArray);
-    
+                
                 window.localStorage.setItem("items", JSON.stringify(cartItemsArray));
-    
+                
                 let total = 0;
                 cartItemsArray.forEach(item => {
                     total += item.price * item.quantity;
@@ -112,10 +118,20 @@ export const Cart = () => {
         }
     };
     
-
+    const createPayment = async () => {
+        if (params.isPayment === "success") {
+            window.localStorage.removeItem("items")
+            setItems([])
+            const cartItems = JSON.parse(window.localStorage.getItem("PaidItems"))
+            const res = await AddPayment(cartItems);
+            if (res !== "payment done!!") return 
+            console.log(res)
+        }
+    }
+    
     useEffect(() => {
         const isItems = window.localStorage.getItem("items");
-
+        
         if (isItems) {
             const parsed = JSON.parse(isItems);
             setItems(parsed);
@@ -123,6 +139,7 @@ export const Cart = () => {
         } else {
             FetchCart();
         }
+        createPayment();
     }, []);
     useEffect(() => {
         if (items.length > 0) {
@@ -177,7 +194,7 @@ export const Cart = () => {
                         <p className='font-bold pl-2'>{totalPrice}</p>
                     </div>
                     <div className='flex justify-center items-center'>
-                        <button className='proceed' onClick={(e) => AddCartHandler(e)}>Proceed</button>
+                        <button className='proceed' onClick={(e) => PaymentHandler(e)}>Proceed</button>
                         <button className='generate-bill' onClick={handleGenerateBill}>Generate Bill</button>
                     </div>
                 </div>
@@ -210,7 +227,7 @@ export const Cart = () => {
                                     <td data-label ="S.N:">{index+1}</td>
                                      <td data-label ="Title:">{item.title}</td>
                                      <td data-label ="Quantity:">{item.quantity}</td>
-                                     <td data-label ="Total Price:">{item.totalPrice}</td>
+                                     <td data-label ="Total Price:" >{item.totalPrice}</td>
                                    </tr>
                                  </tbody>
                                </table>

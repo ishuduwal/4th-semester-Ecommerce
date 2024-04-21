@@ -19,9 +19,9 @@ import { Profile } from './Profile';
 import { useEffect, useState } from 'react';
 import { Navbar } from './components/navbar/Navbar';
 import { Order } from './components/admin/Order';
+import { Payment } from './components/admin/Payment';
 import { Aboutus } from './components/home/Aboutus';
 import Searchresult from './components/navbar/Searchresult';
-
 function App() {
 
   const [user, setUser] = useState("");
@@ -54,7 +54,7 @@ function App() {
       <div className='app'>
       <Router>
           <Navbar user={user} setUser={setUser}  />
-     <div className='body'>
+          <div className='body'>
      <Routes>
         <Route path='/' element={<Home isDarkTheme={isDarkTheme} setIsDarkTheme={setIsDarkTheme} />} />
         <Route path="/login" element={<Login />}/>
@@ -62,7 +62,7 @@ function App() {
         <Route path='/laptop' element={<Laptop/>} />
         <Route path='/accessories' element={<Accessories/>} />
         <Route path='/desktop' element={<Desktop/>} />
-        <Route path= '/laptopdetail' element={<Laptopdetail user={user} />} />
+              <Route path='/laptopdetail' element={<Laptopdetail user={user} />} />
         <Route path='/accessoriesdetail' element={<Accessoriesdetail user={user}/>}/>
         <Route path='/desktopdetail' element={<Desktopdetail user={user}/>}/>
         <Route path='/managelaptop' element={<Managelaptop/>}/>
@@ -70,9 +70,11 @@ function App() {
         <Route path='/manageaccessories' element={<Manageaccessories/>}/>
         <Route path='/managedesktop' element={<Managedesktop/>}/>
         <Route path='/cart' element={<Cart/>}/>
+              <Route path='/cart/:isPayment' element={ <Cart />} />
         <Route path='/animation' element={<Animation/>}/>
         <Route path='/profile' element={<Profile/>}/>
         <Route path='/order' element={<Order/>}/>
+        <Route path='/payment' element={<Payment/>}/>
         <Route path='/aboutus' element={<Aboutus/>}/>
         <Route path='/searchresult' element={<Searchresult />} />
         <Route path="/laptop/:id" element={<Laptopdetail />} />

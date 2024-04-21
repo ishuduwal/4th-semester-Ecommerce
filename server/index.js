@@ -8,6 +8,7 @@ import AccessoriesRouter from './router/Accessories.js'
 import DesktopRouter from './router/Desktop.js'
 import CartRouter from './router/Cart.js'
 import SearchRouter from './router/Search.js';
+import PaymentRouter from './router/Payment.js';
 
 const app = express();
 dotenv.config();
@@ -20,6 +21,7 @@ app.use('/accessories', AccessoriesRouter);
 app.use('/desktop', DesktopRouter);
 app.use('/cart', CartRouter);
 app.use('/api/search', SearchRouter);
+app.use('/payment', PaymentRouter);
 
 const PORT = process.env.PORT || 5000;
 mongoose.connect(process.env.mongodb).then(() =>

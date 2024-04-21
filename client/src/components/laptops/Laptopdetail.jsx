@@ -92,7 +92,7 @@ export const Laptopdetail = ({ user }) => {
               <p className='flex'><p className='mr-1 font-semibold'>Weight:</p>{state.weight}</p>
         <p className='flex'><p className='mr-1 font-semibold'>Display:</p>{ state.display }</p>
               <div className='laptop-price'>
-                <p>NPR {totalPrice}</p>
+                <p>$ {totalPrice}</p>
               </div>
               <div className='flex gap-16 quantity-cart'>
                   <div className='flex'>

@@ -64,6 +64,9 @@ export const Sidebar = ({ isSidebar, setIsSidebar }) => {
         <Link to='/order' onClick={()=> setIsSidebar(false)}>
           <button className='manage-item'>Order</button>
         </Link>
+        <Link to='/payment' onClick={()=> setIsSidebar(false)}>
+          <button className='manage-item'>Payment</button>
+        </Link>
             </>
             :
             ""
